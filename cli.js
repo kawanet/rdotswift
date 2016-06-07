@@ -43,7 +43,7 @@ function main() {
       }
 
       var short = out.replace(/^.*\//, "");
-      swift = "// " + short + "\n\n" + swift;
+      swift = "//  " + short + "\n" + swift;
 
       console.warn("writing:", out);
       fs.writeFile(out, swift, next);
