@@ -1,0 +1,34 @@
+{
+  "name": "rtoswift",
+  "description": "main/res/values/strings.xml -> R+main+strings.swift",
+  "version": "0.0.1",
+  "author": "@kawanet",
+  "bin": {
+    "rtoswift": "./cli.js"
+  },
+  "bugs": {
+    "url": "https://github.com/kawanet/rtoswift/issues"
+  },
+  "dependencies": {
+    "cheerio": "^0.20.0"
+  },
+  "homepage": "https://github.com/kawanet/rtoswift#readme",
+  "keywords": [
+    "Android",
+    "Java",
+    "R",
+    "XML",
+    "iOS",
+    "swift"
+  ],
+  "license": "MIT",
+  "main": "cli.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kawanet/rtoswift.git"
+  },
+  "scripts": {
+    "fixpack": "fixpack",
+    "test": "jshint *.js *.json lib/*.js"
+  }
+}
