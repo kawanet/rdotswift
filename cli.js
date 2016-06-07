@@ -10,29 +10,31 @@ function main() {
     var cmd = process.argv[1].replace(/^.*\//, "");
     return error("Usage: " + cmd + " app/src/*/res/values/*.xml");
   }
+  var cnt = 0;
   next();
 
   function error(err) {
     console.warn((err instanceof Error) ? err.stack : err + "");
     process.exit(1);
+    return;
   }
 
   function next(err) {
-    if (err) return error(err);
+    if (err) return end(err);
 
-    if (!args.length) return;
+    if (!args.length) return end();
     var file = args.shift();
 
     console.warn("reading:", file);
     fs.readFile(file, _readFileSync);
 
     function _readFileSync(err, xml) {
-      if (err || !xml) return next(err);
+      if (err || !xml) return end(err);
       rtoswift(xml, _rtoswift);
     }
 
     function _rtoswift(err, swift) {
-      if (err) return next(err);
+      if (err) return end(err);
 
       var out = filemap[file];
       out = out.replace(/(\.xml)?$/, ".swift");
@@ -45,9 +47,25 @@ function main() {
       var short = out.replace(/^.*\//, "");
       swift = "//  " + short + "\n" + swift;
 
+      cnt++;
       console.warn("writing:", out);
       fs.writeFile(out, swift, next);
     }
+  }
+
+  function end(err) {
+    if (err) return error(err);
+
+    if (!cnt) return error("nothing generated");
+
+    copy();
+  }
+
+  function copy() {
+    var src = __dirname + "/templates/R.swift";
+    var dest = "R.swift";
+    console.warn("copying:", dest);
+    fs.writeFileSync(dest, fs.readFileSync(src));
   }
 }
 
