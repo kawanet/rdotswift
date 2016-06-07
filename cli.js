@@ -6,13 +6,19 @@ var rtoswift = require("./lib/rtoswift");
 function main() {
   var filemap = getFileMap(arguments);
   var args = Object.keys(filemap);
+  if (!args.length) {
+    var cmd = process.argv[1].replace(/^.*\//, "");
+    return error("Usage: " + cmd + " app/src/*/res/values/*.xml");
+  }
   next();
 
+  function error(err) {
+    console.warn((err instanceof Error) ? err.stack : err + "");
+    process.exit(1);
+  }
+
   function next(err) {
-    if (err) {
-      console.warn((err instanceof Error) ? err.stack : err + "");
-      process.exit(1);
-    }
+    if (err) return error(err);
 
     if (!args.length) return;
     var file = args.shift();
