@@ -1,13 +1,13 @@
 # rdotswift
 
-src/production/res/values/strings.xml -> R+production.swift
+res/values/strings.xml -> R.swift
 
 ## USAGE
 
 ```sh
-rdotswift app/src/main/res/values/*.xml --output=R+main.swift
-rdotswift app/src/production/res/values/*.xml --output=R+production.swift
-rdotswift app/src/develop/res/values/*.xml --output=R+develop.swift
+rdotswift app/src/main/res/values/*.xml --output=R.swift
+rdotswift app/src/production/res/values/*.xml --extension --output=R+production.swift
+rdotswift app/src/develop/res/values/*.xml --extension --output=R+develop.swift
 ```
 
 ## INSTALL

@@ -1,6 +1,6 @@
 {
   "name": "rdotswift",
-  "description": "src/production/res/values/strings.xml -> R+production.swift",
+  "description": "res/values/strings.xml -> R.swift",
   "version": "0.0.1",
   "author": "@kawanet",
   "bin": {

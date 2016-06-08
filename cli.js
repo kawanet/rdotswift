@@ -11,7 +11,7 @@ function main() {
   var args = options["--"];
   if (!args.length) {
     var cmd = process.argv[1].replace(/^.*\//, "");
-    return error("Usage: " + cmd + " app/src/*/res/values/*.xml");
+    return error("Usage: " + cmd + " app/src/main/res/values/*.xml --output=R.swift");
   }
   var buf = [];
   next();
