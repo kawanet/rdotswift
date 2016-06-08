@@ -10,8 +10,8 @@
     "url": "https://github.com/kawanet/rdotswift/issues"
   },
   "dependencies": {
-    "cheerio": "^0.20.0",
-    "process.argv": "kawanet/process.argv"
+    "process.argv": "kawanet/process.argv",
+    "rdotjson": "kawanet/rdotjson"
   },
   "devDependencies": {
     "jshint": "^2.9.2"
