@@ -3,7 +3,7 @@
 var fs = require("fs");
 var options = require("process.argv")(process.argv.slice(2))();
 
-var rdotswift = require("./lib/rdotswift");
+var rdotswift = require("./rdotswift");
 var CLASS = "class";
 
 main();

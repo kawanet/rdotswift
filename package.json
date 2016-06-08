@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "author": "@kawanet",
   "bin": {
-    "rdotswift": "./cli.js"
+    "rdotswift": "./rdotswift.cli.js"
   },
   "bugs": {
     "url": "https://github.com/kawanet/rdotswift/issues"
@@ -30,7 +30,7 @@
     "swift"
   ],
   "license": "MIT",
-  "main": "cli.js",
+  "main": "./rdotswift.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kawanet/rdotswift.git"
