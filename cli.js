@@ -33,9 +33,11 @@ function main() {
 
     if (!args.length) return end();
     var file = args.shift();
-    options.source = file.replace(/^.*\//, "");
-    console.warn("reading: " + file);
-    fs.readFile(file, _readFileSync);
+    var isSTDIN = (file === "-");
+    options.source = !isSTDIN && file.replace(/^.*\//, "");
+    console.warn("reading: " + (isSTDIN ? "(stdin)" : file));
+    var stream = isSTDIN ? process.stdin : fs.createReadStream(file);
+    _readFileSync(null, stream);
   }
 
   function _readFileSync(err, xml) {
