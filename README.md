@@ -12,13 +12,15 @@ rdotswift app/src/develop/res/values/*.xml --extension --if=DEBUG --output=R+dev
 
 ## OPTIONS
 
-`--class` - force to add `final class R {}` declaration
+`--class` - always insert `final class R {}` declaration
 
-`--extension` - skip to add `final class R {}` declaration
+`--extension` - never insert `final class R {}` declaration
 
 `--if=DEBUG` - wrap with `#if DEBUG` ... `#endif` conditional compilation statement
 
-`--output=R.swift` - set output file name
+`--output=R.swift` - output to the file `R.swift`. default: STDOUT
+
+`-` - input XML from STDIN
 
 ## INSTALL
 
