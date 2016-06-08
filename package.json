@@ -12,7 +12,14 @@
   "dependencies": {
     "cheerio": "^0.20.0"
   },
+  "devDependencies": {
+    "jshint": "^2.9.2"
+  },
   "homepage": "https://github.com/kawanet/rdotswift#readme",
+  "jshintConfig": {
+    "node": true,
+    "undef": true
+  },
   "keywords": [
     "Android",
     "Java",
@@ -29,6 +36,6 @@
   },
   "scripts": {
     "fixpack": "fixpack",
-    "test": "jshint *.js *.json lib/*.js"
+    "test": "./node_modules/.bin/jshint *.js *.json lib/*.js"
   }
 }
