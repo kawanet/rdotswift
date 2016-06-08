@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/kawanet/rdotswift#readme",
   "jshintConfig": {
+    "eqnull": true,
     "node": true,
     "undef": true
   },
@@ -37,6 +38,6 @@
   },
   "scripts": {
     "fixpack": "fixpack",
-    "test": "./node_modules/.bin/jshint *.js *.json lib/*.js"
+    "test": "./node_modules/.bin/jshint *.js *.json"
   }
 }
