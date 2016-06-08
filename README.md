@@ -5,8 +5,12 @@ res/values/strings.xml -> R.swift
 ## SYNOPSIS
 
 ```sh
+rdotswift app/src/main/res/values/strings.xml > R.swift
+
 rdotswift app/src/main/res/values/*.xml --class --output=R.swift
+
 rdotswift app/src/production/res/values/*.xml --extension --if='!DEBUG' --output=R+production.swift
+
 rdotswift app/src/develop/res/values/*.xml --extension --if=DEBUG --output=R+develop.swift
 ```
 
@@ -27,6 +31,21 @@ rdotswift app/src/develop/res/values/*.xml --extension --if=DEBUG --output=R+dev
 ```sh
 brew install node
 npm install -g kawanet/rdotswift
+```
+
+## JavaScript API
+
+```js
+var fs = require("fs");
+var rdotswift = require("rdotswift");
+
+var xml = fs.readFileSync("strings.xml");
+var options = {"if": "DEBUG"};
+
+rdotswift(xml, options, function(err, swift) {
+  if (err) throw err;
+  process.stdout.write(swift);
+});
 ```
 
 ## REPOSITORY
