@@ -2,13 +2,21 @@
 
 res/values/strings.xml -> R.swift
 
-## USAGE
+## SYNOPSIS
 
 ```sh
-rdotswift app/src/main/res/values/*.xml --output=R.swift
+rdotswift app/src/main/res/values/*.xml --class --output=R.swift
 rdotswift app/src/production/res/values/*.xml --extension --output=R+production.swift
 rdotswift app/src/develop/res/values/*.xml --extension --output=R+develop.swift
 ```
+
+## OPTIONS
+
+`--class` - force to add `final class R {}` declaration
+
+`--extension` - skip to add `final class R {}` declaration
+
+`--output=R.swift` - set output file name
 
 ## INSTALL
 
