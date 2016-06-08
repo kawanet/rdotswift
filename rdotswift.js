@@ -72,7 +72,7 @@ function format(R, options) {
   out = out.concat(dimen(R.dimen));
   out = out.concat(string(R.string));
 
-  if (options[IF]) {
+  if (options.endif || (options[IF] && options.endif !== false)) {
     out.push("#endif");
     out.push("");
   }

@@ -5,6 +5,7 @@ var options = require("process.argv")(process.argv.slice(2))();
 
 var rdotswift = require("./rdotswift");
 var CLASS = "class";
+var IF = "if";
 
 main();
 
@@ -15,6 +16,7 @@ function main() {
     return error("Usage: " + cmd + " app/src/main/res/values/*.xml --output=R.swift");
   }
   var buf = [];
+  var optionIF = options[IF];
 
   if (options[CLASS]) {
     _readFileSync(null, "\n");
@@ -43,8 +45,11 @@ function main() {
   function _readFileSync(err, xml) {
     if (err || !xml) return end(err);
     var isFirst = !buf.length;
+    var isLast = !args.length;
     options.header = isFirst;
     options[CLASS] = isFirst && (options[CLASS] || !options.extension);
+    options[IF] = isFirst && optionIF;
+    options.endif = (isLast && optionIF) || false;
     rdotswift(xml, options, _rdotswift);
   }
 
