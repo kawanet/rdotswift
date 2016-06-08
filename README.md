@@ -5,9 +5,9 @@ src/production/res/values/strings.xml -> R+production.swift
 ## USAGE
 
 ```sh
-rdotswift app/src/main/res/values/*.xml > R+main.swift
-rdotswift app/src/production/res/values/*.xml > R+production.swift
-rdotswift app/src/develop/res/values/*.xml > R+develop.swift
+rdotswift app/src/main/res/values/*.xml --output=R+main.swift
+rdotswift app/src/production/res/values/*.xml --output=R+production.swift
+rdotswift app/src/develop/res/values/*.xml --output=R+develop.swift
 ```
 
 ## INSTALL

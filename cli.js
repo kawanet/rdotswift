@@ -28,7 +28,7 @@ function main() {
     if (!args.length) return end();
     var file = args.shift();
 
-    console.warn("reading:", file);
+    console.warn("reading: " + file);
     fs.readFile(file, _readFileSync);
 
     function _readFileSync(err, xml) {
@@ -50,6 +50,11 @@ function main() {
 
     if (!buf.length) return error("nothing generated");
 
-    process.stdout.write(buf.join("\n"));
+    var output = options.output || "-";
+    var isSTDOUT = (output === "-");
+    console.warn("writing: " + (isSTDOUT ? "(stdout)" : output));
+    var out = isSTDOUT ? process.stdout : fs.createWriteStream(output);
+    out.write(buf.join("\n"));
+    if (!isSTDOUT) out.end();
   }
 }
