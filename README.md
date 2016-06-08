@@ -1,23 +1,23 @@
-# rtoswift
+# rdotswift
 
 main/res/values/strings.xml -> R+main+strings.swift
 
 ## USAGE
 
 ```sh
-rtoswift app/src/*/res/values/*.xml
+rdotswift app/src/*/res/values/*.xml
 ```
 
 ## INSTALL
 
 ```sh
 brew install node
-npm install -g kawanet/rtoswift
+npm install -g kawanet/rdotswift
 ```
 
 ## REPOSITORY
 
-- [https://github.com/kawanet/rtoswift](https://github.com/kawanet/rtoswift)
+- [https://github.com/kawanet/rdotswift](https://github.com/kawanet/rdotswift)
 
 ## LICENSE
 
