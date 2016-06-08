@@ -6,8 +6,8 @@ res/values/strings.xml -> R.swift
 
 ```sh
 rdotswift app/src/main/res/values/*.xml --class --output=R.swift
-rdotswift app/src/production/res/values/*.xml --extension --output=R+production.swift
-rdotswift app/src/develop/res/values/*.xml --extension --output=R+develop.swift
+rdotswift app/src/production/res/values/*.xml --extension --if='!DEBUG' --output=R+production.swift
+rdotswift app/src/develop/res/values/*.xml --extension --if=DEBUG --output=R+develop.swift
 ```
 
 ## OPTIONS
@@ -15,6 +15,8 @@ rdotswift app/src/develop/res/values/*.xml --extension --output=R+develop.swift
 `--class` - force to add `final class R {}` declaration
 
 `--extension` - skip to add `final class R {}` declaration
+
+`--if=DEBUG` - wrap with `#if DEBUG` ... `#endif` conditional compilation statement
 
 `--output=R.swift` - set output file name
 
