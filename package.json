@@ -1,18 +1,18 @@
 {
-  "name": "rtoswift",
+  "name": "rdotswift",
   "description": "main/res/values/strings.xml -> R+main+strings.swift",
   "version": "0.0.1",
   "author": "@kawanet",
   "bin": {
-    "rtoswift": "./cli.js"
+    "rdotswift": "./cli.js"
   },
   "bugs": {
-    "url": "https://github.com/kawanet/rtoswift/issues"
+    "url": "https://github.com/kawanet/rdotswift/issues"
   },
   "dependencies": {
     "cheerio": "^0.20.0"
   },
-  "homepage": "https://github.com/kawanet/rtoswift#readme",
+  "homepage": "https://github.com/kawanet/rdotswift#readme",
   "keywords": [
     "Android",
     "Java",
@@ -25,7 +25,7 @@
   "main": "cli.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kawanet/rtoswift.git"
+    "url": "git+https://github.com/kawanet/rdotswift.git"
   },
   "scripts": {
     "fixpack": "fixpack",

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var fs = require("fs");
-var rtoswift = require("./lib/rtoswift");
+var rdotswift = require("./lib/rdotswift");
 
 function main() {
   var filemap = getFileMap(arguments);
@@ -30,10 +30,10 @@ function main() {
 
     function _readFileSync(err, xml) {
       if (err || !xml) return end(err);
-      rtoswift(xml, _rtoswift);
+      rdotswift(xml, _rdotswift);
     }
 
-    function _rtoswift(err, swift) {
+    function _rdotswift(err, swift) {
       if (err) return end(err);
 
       var out = filemap[file];
