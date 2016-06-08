@@ -1,16 +1,20 @@
 #!/usr/bin/env node
 
 var fs = require("fs");
+var argv = require("process.argv")(process.argv.slice(2))();
+
 var rdotswift = require("./lib/rdotswift");
 
+main();
+
 function main() {
-  var filemap = getFileMap(arguments);
-  var args = Object.keys(filemap);
+  var args = argv["--"];
   if (!args.length) {
     var cmd = process.argv[1].replace(/^.*\//, "");
     return error("Usage: " + cmd + " app/src/*/res/values/*.xml");
   }
   var cnt = 0;
+  var filemap = getFileMap(args);
   next();
 
   function error(err) {
@@ -118,5 +122,3 @@ function getFileMap(args) {
     map[key] = "R+" + map[key].join("+");
   }
 }
-
-main.apply(null, Array.prototype.slice.call(process.argv, 2));
