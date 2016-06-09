@@ -10,7 +10,7 @@
     "url": "https://github.com/kawanet/rdotswift/issues"
   },
   "dependencies": {
-    "process.argv": "kawanet/process.argv",
+    "process.argv": "^0.1.0",
     "rdotjson": "kawanet/rdotjson"
   },
   "devDependencies": {
