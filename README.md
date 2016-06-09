@@ -11,7 +11,7 @@ rdotswift app/src/main/res/values/*.xml --class --output=R.swift
 
 rdotswift app/src/production/res/values/*.xml --extension --if='!DEBUG' --output=R+production.swift
 
-rdotswift app/src/develop/res/values/*.xml --extension --if=DEBUG --output=R+develop.swift
+rdotswift app/src/develop/res/values/*.xml --extension --if=DEBUG --exclude='*_android' --output=R+develop.swift
 ```
 
 ## OPTIONS
@@ -23,6 +23,8 @@ rdotswift app/src/develop/res/values/*.xml --extension --if=DEBUG --output=R+dev
 `--if=DEBUG` - wrap with `#if DEBUG` ... `#endif` conditional compilation statement
 
 `--output=R.swift` - output to the file `R.swift`. default: STDOUT
+
+`--exclude='*_android'` - key names to exclude. wildcard available
 
 `-` - input XML from STDIN
 
