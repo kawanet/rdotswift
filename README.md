@@ -16,15 +16,15 @@ rdotswift app/src/develop/res/values/*.xml --extension --if=DEBUG --exclude='*_a
 
 ## OPTIONS
 
-`--class` - always insert `final class R {}` declaration
+`--class=R` - class name. default: `R`
 
-`--extension` - never insert `final class R {}` declaration
+`--exclude='*_android'` - key names to exclude. wildcard available
+
+`--extension` - extension only without `final class R {}` declaration
 
 `--if=DEBUG` - wrap with `#if DEBUG` ... `#endif` conditional compilation statement
 
-`--output=R.swift` - output to the file `R.swift`. default: STDOUT
-
-`--exclude='*_android'` - key names to exclude. wildcard available
+`--output=R.swift` - output file name. default: `-` (STDOUT)
 
 `-` - input XML from STDIN
 
@@ -46,7 +46,7 @@ var options = {"if": "DEBUG"};
 
 rdotswift(xml, options, function(err, swift) {
   if (err) throw err;
-  process.stdout.write(swift);
+  fs.writeFileSync("R.swift", swift);
 });
 ```
 

@@ -18,8 +18,12 @@ function main() {
   var buf = [];
   var optionIF = options[IF];
 
-  if (options[CLASS]) {
-    _readFileSync(null, "\n");
+  if (options[CLASS] === true) {
+    options[CLASS] = "R"; // compat
+  }
+
+  if (!options.extension) {
+    _readFileSync(null, "\n"); // load empty XML at first
   } else {
     next();
   }
@@ -32,7 +36,6 @@ function main() {
 
   function next(err) {
     if (err) return end(err);
-
     if (!args.length) return end();
     var file = args.shift();
     var isSTDIN = (file === "-");
@@ -47,7 +50,7 @@ function main() {
     var isFirst = !buf.length;
     var isLast = !args.length;
     options.header = isFirst;
-    options[CLASS] = isFirst && (options[CLASS] || !options.extension);
+    options.extension = options.extension || !isFirst;
     options[IF] = isFirst && optionIF;
     options.endif = (isLast && optionIF) || false;
     rdotswift(xml, options, _rdotswift);

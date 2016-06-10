@@ -51,8 +51,9 @@ function format(R, options) {
     out.push("");
   }
 
-  if (options[CLASS]) {
-    out.push("final class R {");
+  if (!options.extension) {
+    var className = options[CLASS] || "R";
+    out.push("final class " + className + " {");
     ["bool", "color", "dimen", "string"].map(function(type, idx) {
       if (idx) out.push("");
       out.push("    final class " + type + " {");
@@ -67,10 +68,10 @@ function format(R, options) {
     out.push("");
   }
 
-  out = out.concat(bool(R.bool));
-  out = out.concat(color(R.color));
-  out = out.concat(dimen(R.dimen));
-  out = out.concat(string(R.string));
+  out = out.concat(bool(R.bool, options));
+  out = out.concat(color(R.color, options));
+  out = out.concat(dimen(R.dimen, options));
+  out = out.concat(string(R.string, options));
 
   if (options.endif || (options[IF] && options.endif !== false)) {
     out.push("#endif");
@@ -80,7 +81,7 @@ function format(R, options) {
   return out.join("\n");
 }
 
-function string(src) {
+function string(src, options) {
   var rows = [];
   for (var key in src) {
     var val = src[key];
@@ -89,10 +90,10 @@ function string(src) {
     var row = "    static let " + key + " = " + val;
     rows.push(row);
   }
-  return extension("string", rows);
+  return extension("string", rows, options);
 }
 
-function color(src) {
+function color(src, options) {
   var rows = [];
   for (var key in src) {
     var val = src[key];
@@ -109,14 +110,14 @@ function color(src) {
       "UIColor(red: " + c(red) + ", green: " + c(green) + ", blue:" + c(blue) + ", alpha: 1)";
     rows.push(row);
   }
-  return extension("color", rows);
+  return extension("color", rows, options);
 
   function c(val) {
     return Math.round(val / 255 * 1000) / 1000;
   }
 }
 
-function dimen(src) {
+function dimen(src, options) {
   var rows = [];
   for (var key in src) {
     var val = src[key];
@@ -125,10 +126,10 @@ function dimen(src) {
     var row = "    static let " + key + ": CGFloat = " + parseInt(val);
     rows.push(row);
   }
-  return extension("dimen", rows);
+  return extension("dimen", rows, options);
 }
 
-function bool(src) {
+function bool(src, options) {
   var rows = [];
   for (var key in src) {
     var val = src[key];
@@ -136,12 +137,14 @@ function bool(src) {
     var row = "    static let " + key + " = " + val;
     rows.push(row);
   }
-  return extension("bool", rows);
+  return extension("bool", rows, options);
 }
 
-function extension(type, rows) {
+function extension(type, rows, options) {
   if (rows.length) {
-    rows.unshift("extension R." + type + " {");
+    var className = options[CLASS] || "R";
+    className += "." + type;
+    rows.unshift("extension " + className + " {");
     rows.push("}");
     rows.push("");
   }
