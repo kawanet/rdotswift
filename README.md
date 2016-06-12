@@ -1,13 +1,13 @@
 # rdotswift
 
-res/values/strings.xml -> R.swift
+res/values/strings.xml to R.swift
 
 ## SYNOPSIS
 
 ```sh
 rdotswift app/src/main/res/values/strings.xml > R.swift
 
-rdotswift app/src/main/res/values/*.xml --class --output=R.swift
+rdotswift app/src/main/res/values/*.xml --output=R.swift
 
 rdotswift app/src/production/res/values/*.xml --extension --if='!DEBUG' --output=R+production.swift
 
@@ -37,21 +37,6 @@ npm install -g rdotswift
 ```
 
 ## JavaScript API
-
-```js
-var fs = require("fs");
-var rdotswift = require("rdotswift");
-
-var xml = fs.readFileSync("strings.xml");
-var options = {"if": "DEBUG"};
-
-rdotswift(xml, options, function(err, swift) {
-  if (err) throw err;
-  fs.writeFileSync("R.swift", swift);
-});
-```
-
-### Format Method
 
 ```js
 var R = {

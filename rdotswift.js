@@ -1,39 +1,17 @@
 // rdotswift.js
 
-var exports = module.exports = rdotswift;
 exports.format = format;
 
-var rtojson = require("rdotjson");
 var CLASS = "class";
 var IF = "if";
 
 /**
- * generates Swift source code from resource XML
+ * generates Swift source code
  *
- * @param xml {String|Buffer|Stream}
+ * @param R {Object}
  * @param [options] {Object}
- * @param callback {Function} function(err, swift) {...}
+ * @returns {String}
  */
-
-function rdotswift(xml, options, callback) {
-  if (options instanceof Function && callback == null) {
-    callback = options;
-    options = null;
-  }
-
-  return rtojson(xml, options, then);
-
-  function then(err, R) {
-    if (err) {
-      if (callback) return callback(err);
-      throw err;
-    }
-
-    var swift = format(R, options);
-
-    if (callback) return callback(null, swift);
-  }
-}
 
 function format(R, options) {
   if (!options) options = {};

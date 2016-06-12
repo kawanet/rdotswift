@@ -12,39 +12,6 @@ describe(TITLE, function() {
   var dimen = 'static let activity_horizontal_margin: CGFloat = 16';
   var string = 'static let app_name = "MyApp"';
 
-  it("colors.xml", function(done) {
-    var xml = fs.readFileSync(__dirname + "/values/colors.xml");
-    assert.ok(xml);
-    rdotswift(xml, function(err, swift) {
-      assert.ok(!err, err);
-      assert.ok(swift);
-      assert.ok(swift.indexOf(color) > -1);
-      done();
-    });
-  });
-
-  it("dimens.xml", function(done) {
-    var xml = fs.readFileSync(__dirname + "/values/dimens.xml");
-    assert.ok(xml);
-    rdotswift(xml, function(err, swift) {
-      assert.ok(!err, err);
-      assert.ok(swift);
-      assert.ok(swift.indexOf(dimen) > -1);
-      done();
-    });
-  });
-
-  it("strings.xml", function(done) {
-    var xml = fs.readFileSync(__dirname + "/values/strings.xml");
-    assert.ok(xml);
-    rdotswift(xml, function(err, swift) {
-      assert.ok(!err, err);
-      assert.ok(swift);
-      assert.ok(swift.indexOf(string) > -1);
-      done();
-    });
-  });
-
   it("format.swift", function(done) {
     var R = {
       color: {

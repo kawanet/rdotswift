@@ -2,6 +2,7 @@
 
 var fs = require("fs");
 var options = require("process.argv")(process.argv.slice(2))();
+var rdotjson = require("rdotjson");
 
 var rdotswift = require("./rdotswift");
 var CLASS = "class";
@@ -23,10 +24,10 @@ function main() {
   }
 
   if (!options.extension) {
-    _readFileSync(null, "\n"); // load empty XML at first
-  } else {
-    next();
+    append(); // load empty XML at first
   }
+
+  next();
 
   function error(err) {
     console.warn((err instanceof Error) ? err.stack : err + "");
@@ -42,24 +43,24 @@ function main() {
     options.source = !isSTDIN && file.replace(/^.*\//, "");
     console.warn("reading: " + (isSTDIN ? "(stdin)" : file));
     var stream = isSTDIN ? process.stdin : fs.createReadStream(file);
-    _readFileSync(null, stream);
+    rdotjson(stream, options, parsed);
   }
 
-  function _readFileSync(err, xml) {
-    if (err || !xml) return end(err);
+  function parsed(err, R) {
+    if (err) return end(err);
+    append(R);
+    next();
+  }
+
+  function append(R) {
     var isFirst = !buf.length;
     var isLast = !args.length;
     options.header = isFirst;
     options.extension = options.extension || !isFirst;
     options[IF] = isFirst && optionIF;
     options.endif = (isLast && optionIF) || false;
-    rdotswift(xml, options, _rdotswift);
-  }
-
-  function _rdotswift(err, swift) {
-    if (err) return end(err);
+    var swift = rdotswift.format(R || {}, options);
     buf.push(swift);
-    next();
   }
 
   function end(err) {
