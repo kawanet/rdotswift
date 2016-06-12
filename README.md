@@ -24,6 +24,8 @@ rdotswift app/src/develop/res/values/*.xml --extension --if=DEBUG --exclude='*_a
 
 `--if=DEBUG` - wrap with `#if DEBUG` ... `#endif` conditional compilation statement
 
+`--merge` - merge all resources. default: parse each xml files respectively.
+
 `--output=R.swift` - output file name. default: `-` (STDOUT)
 
 `-` - input XML from STDIN

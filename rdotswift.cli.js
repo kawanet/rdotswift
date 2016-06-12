@@ -16,11 +16,16 @@ function main() {
     var cmd = process.argv[1].replace(/^.*\//, "");
     return error("Usage: " + cmd + " app/src/main/res/values/*.xml --output=R.swift");
   }
+  var R;
   var buf = [];
   var optionIF = options[IF];
 
   if (options[CLASS] === true) {
     options[CLASS] = "R"; // compat
+  }
+
+  if (options.merge) {
+    options.R = R = {};
   }
 
   if (!options.extension) {
@@ -40,7 +45,7 @@ function main() {
     if (!args.length) return end();
     var file = args.shift();
     var isSTDIN = (file === "-");
-    options.source = !isSTDIN && file.replace(/^.*\//, "");
+    if (!options.merge) options.source = !isSTDIN && file.replace(/^.*\//, "");
     console.warn("reading: " + (isSTDIN ? "(stdin)" : file));
     var stream = isSTDIN ? process.stdin : fs.createReadStream(file);
     rdotjson(stream, options, parsed);
@@ -48,7 +53,7 @@ function main() {
 
   function parsed(err, R) {
     if (err) return end(err);
-    append(R);
+    if (!options.merge) append(R);
     next();
   }
 
@@ -65,9 +70,8 @@ function main() {
 
   function end(err) {
     if (err) return error(err);
-
+    if (options.merge) append(R);
     if (!buf.length) return error("nothing generated");
-
     var output = options.output || "-";
     var isSTDOUT = (output === "-");
     console.warn("writing: " + (isSTDOUT ? "(stdout)" : output));
