@@ -31,8 +31,9 @@ rdotswift app/src/develop/res/values/*.xml --extension --if=DEBUG --exclude='*_a
 ## INSTALL
 
 ```sh
-brew install node
-npm install -g kawanet/rdotswift
+brew install node # for Mac users
+
+npm install -g rdotswift
 ```
 
 ## JavaScript API
@@ -48,6 +49,26 @@ rdotswift(xml, options, function(err, swift) {
   if (err) throw err;
   fs.writeFileSync("R.swift", swift);
 });
+```
+
+### Format Method
+
+```js
+var R = {
+  color: {
+    colorPrimary: "#3F51B5"
+  },
+  dimen: {
+    activity_horizontal_margin: "16dp"
+  },
+  string: {
+    app_name: "MyApp"
+  }
+};
+
+var swift = rdotswift.format(R);
+
+fs.writeFileSync("R.swift", swift);
 ```
 
 ## REPOSITORY
