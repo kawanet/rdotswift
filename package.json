@@ -1,7 +1,7 @@
 {
   "name": "rdotswift",
   "description": "res/values/strings.xml -> R.swift",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "@kawanet",
   "bin": {
     "rdotswift": "./rdotswift.cli.js"
