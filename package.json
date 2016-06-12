@@ -1,6 +1,6 @@
 {
   "name": "rdotswift",
-  "description": "res/values/strings.xml -> R.swift",
+  "description": "res/values/strings.xml to R.swift",
   "version": "0.1.1",
   "author": "@kawanet",
   "bin": {
