@@ -168,14 +168,13 @@ function extension(type, rows, options) {
 
 function comment(val) {
   if (val === "") val = "(empty)";
-  if ("string" === typeof val) {
-    val = val.replace(/\*\//g, "*\\/");
-    val = val.replace(/\n/g, "\\n");
-  } else {
-    val += "";
-  }
+  val += "";
+  val = val.replace(/\r/g, "\\r");
+  val = val.replace(/\n/g, "\\n");
+  val = val.replace(/\t/g, "\\t");
+  val = val.replace(/\s+/g, " ");
   if (val.length > MAX_COMMENT_LENGTH) {
     val = val.substr(0, MAX_COMMENT_LENGTH) + "...";
   }
-  return "    /** " + val + " */";
+  return "    /// " + val;
 }
