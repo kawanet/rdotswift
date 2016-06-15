@@ -107,16 +107,22 @@ function color(src, options) {
   for (var key in src) {
     var val = src[key];
     if (!val) return;
-    if (!val.match(/^#\w+$/)) return;
-    var rgb = parseInt(val.substr(1), 16);
-    var blue = rgb & 0xFF;
-    rgb >>= 8;
-    var green = rgb & 0xFF;
-    rgb >>= 8;
-    var red = rgb & 0xFF;
     rows.push(comment(val));
-    var row = "    static let " + key + " = " +
-      "UIColor(red: " + c(red) + ", green: " + c(green) + ", blue:" + c(blue) + ", alpha: 1)";
+    var row = "    static let " + key + " = ";
+    val += "";
+    if (val.match(/^#[0-9A-Fa-f]{6,8}$/)) {
+      var rgb = parseInt(val.substr(1), 16);
+      var blue = rgb & 0xFF;
+      rgb >>= 8;
+      var green = rgb & 0xFF;
+      rgb >>= 8;
+      var red = rgb & 0xFF;
+      rgb >>= 8;
+      var alpha = (val.length === 9) ? (rgb & 0xFF) : 255;
+      row += "UIColor(red: " + c(red) + ", green: " + c(green) + ", blue:" + c(blue) + ", alpha: " + c(alpha) + ")";
+    } else {
+      row += JSON.stringify(val);
+    }
     rows.push(row);
   }
   return extension("color", rows, options);
@@ -132,7 +138,7 @@ function dimen(src, options) {
     var val = src[key];
     if (!val) return;
     rows.push(comment(val));
-    var row = "    static let " + key + ": CGFloat = " + parseInt(val);
+    var row = "    static let " + key + ": CGFloat = " + parseFloat(val);
     rows.push(row);
   }
   return extension("dimen", rows, options);
