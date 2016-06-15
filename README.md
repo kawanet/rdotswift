@@ -16,6 +16,8 @@ rdotswift app/src/develop/res/values/*.xml --extension --if=DEBUG --exclude='*_a
 
 ## OPTIONS
 
+`--appkit` - import AppKit for macOS application. default: import UIKit
+
 `--class=R` - class name. default: `R`
 
 `--exclude='*_android'` - key names to exclude. wildcard available
@@ -24,7 +26,7 @@ rdotswift app/src/develop/res/values/*.xml --extension --if=DEBUG --exclude='*_a
 
 `--if=DEBUG` - wrap with `#if DEBUG` ... `#endif` conditional compilation statement
 
-`--merge` - merge all resources. default: parse each xml files respectively.
+`--merge` - merge all resources. default: declare each resource respectively
 
 `--output=R.swift` - output file name. default: `-` (STDOUT)
 

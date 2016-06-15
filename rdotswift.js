@@ -31,7 +31,11 @@ function format(R, options) {
   }
 
   if (header) {
-    out.push("import UIKit");
+    if (options.appkit) {
+      out.push("import AppKit");
+    } else {
+      out.push("import UIKit");
+    }
     out.push("");
   }
 
@@ -104,6 +108,7 @@ function string(src, options) {
 
 function color(src, options) {
   var rows = [];
+  var uicolor = options.appkit ? "NSColor" : "UIColor";
   for (var key in src) {
     var val = src[key];
     if (!val) return;
@@ -119,7 +124,7 @@ function color(src, options) {
       var red = rgb & 0xFF;
       rgb >>= 8;
       var alpha = (val.length === 9) ? (rgb & 0xFF) : 255;
-      row += "UIColor(red: " + c(red) + ", green: " + c(green) + ", blue:" + c(blue) + ", alpha: " + c(alpha) + ")";
+      row += uicolor + "(red: " + c(red) + ", green: " + c(green) + ", blue:" + c(blue) + ", alpha: " + c(alpha) + ")";
     } else {
       row += JSON.stringify(val);
     }
