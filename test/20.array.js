@@ -20,6 +20,7 @@ describe(TITLE, function() {
     };
     var swift = rdotswift.format(R);
     assert.ok(swift);
+    assert.ok(swift.indexOf('extension R.array') > -1);
     assert.ok(swift.indexOf('static let planets_array = ["Mercury","Venus","Earth","Mars"]') > -1);
     done();
   });

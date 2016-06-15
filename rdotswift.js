@@ -79,7 +79,7 @@ function integer(src, options) {
     var row = "    static let " + key + " = " + val;
     rows.push(row);
   }
-  return extension("string", rows, options);
+  return extension("integer", rows, options);
 }
 
 function array(src, options) {

@@ -19,7 +19,9 @@ describe(TITLE, function() {
     };
     var swift = rdotswift.format(R);
     assert.ok(swift);
+    assert.ok(swift.indexOf('extension R.array') > -1);
     assert.ok(swift.indexOf('static let bits = [4,8,16,32]') > -1);
+    assert.ok(swift.indexOf('extension R.integer') > -1);
     assert.ok(swift.indexOf('static let max_speed = 75') > -1);
     done();
   });

@@ -27,7 +27,9 @@ describe(TITLE, function() {
     assert.ok(swift.indexOf('final class R') > -1);
     assert.ok(swift.indexOf('extension R.color') > -1);
     assert.ok(swift.indexOf('static let colorPrimary = UIColor(red: 0.247, green: 0.318, blue:0.71, alpha: 1)') > -1);
+    assert.ok(swift.indexOf('extension R.dimen') > -1);
     assert.ok(swift.indexOf('static let activity_horizontal_margin: CGFloat = 16') > -1);
+    assert.ok(swift.indexOf('extension R.string') > -1);
     assert.ok(swift.indexOf('static let app_name = "MyApp"') > -1);
     assert.ok(swift.indexOf('#endif') < 0);
     done();
