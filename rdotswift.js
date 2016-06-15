@@ -4,7 +4,7 @@ exports.format = format;
 
 var CLASS = "class";
 var IF = "if";
-var TYPES = ["array", "bool", "color", "dimen", "string"];
+var TYPES = ["array", "bool", "color", "dimen", "integer", "string"];
 var MAX_COMMENT_LENGTH = 64;
 
 /**
@@ -56,6 +56,7 @@ function format(R, options) {
   out = out.concat(bool(R.bool, options));
   out = out.concat(color(R.color, options));
   out = out.concat(dimen(R.dimen, options));
+  out = out.concat(integer(R.integer, options));
   out = out.concat(string(R.string, options));
 
   if (options.endif || (options[IF] && options.endif !== false)) {
@@ -64,6 +65,17 @@ function format(R, options) {
   }
 
   return out.join("\n");
+}
+
+function integer(src, options) {
+  var rows = [];
+  for (var key in src) {
+    var val = src[key];
+    rows.push(comment(val));
+    var row = "    static let " + key + " = " + val;
+    rows.push(row);
+  }
+  return extension("string", rows, options);
 }
 
 function array(src, options) {
