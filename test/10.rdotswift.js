@@ -1,7 +1,6 @@
 #!/usr/bin/env mocha -R spec
 
 var assert = require("assert");
-var fs = require("fs");
 var rdotswift = require("../rdotswift");
 var TITLE = __filename.replace(/^.*\//, "") + ":";
 

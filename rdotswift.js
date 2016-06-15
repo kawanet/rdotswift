@@ -4,6 +4,8 @@ exports.format = format;
 
 var CLASS = "class";
 var IF = "if";
+var TYPES = ["array", "bool", "color", "dimen", "string"];
+var MAX_COMMENT_LENGTH = 64;
 
 /**
  * generates Swift source code
@@ -36,7 +38,7 @@ function format(R, options) {
   if (!options.extension) {
     var className = options[CLASS] || "R";
     out.push("final class " + className + " {");
-    ["bool", "color", "dimen", "string"].map(function(type, idx) {
+    TYPES.map(function(type, idx) {
       if (idx) out.push("");
       out.push("    final class " + type + " {");
       out.push("    }");
@@ -50,6 +52,7 @@ function format(R, options) {
     out.push("");
   }
 
+  out = out.concat(array(R.array, options));
   out = out.concat(bool(R.bool, options));
   out = out.concat(color(R.color, options));
   out = out.concat(dimen(R.dimen, options));
@@ -61,6 +64,18 @@ function format(R, options) {
   }
 
   return out.join("\n");
+}
+
+function array(src, options) {
+  var rows = [];
+  for (var key in src) {
+    var val = src[key];
+    rows.push(comment(val));
+    val = JSON.stringify(val);
+    var row = "    static let " + key + " = " + val;
+    rows.push(row);
+  }
+  return extension("array", rows, options);
 }
 
 function string(src, options) {
@@ -138,6 +153,11 @@ function comment(val) {
   if ("string" === typeof val) {
     val = val.replace(/\*\//g, "*\\/");
     val = val.replace(/\n/g, "\\n");
+  } else {
+    val += "";
+  }
+  if (val.length > MAX_COMMENT_LENGTH) {
+    val = val.substr(0, MAX_COMMENT_LENGTH) + "...";
   }
   return "    /** " + val + " */";
 }
