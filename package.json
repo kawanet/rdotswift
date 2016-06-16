@@ -1,7 +1,7 @@
 {
   "name": "rdotswift",
   "description": "res/values/strings.xml to R.swift",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "@kawanet",
   "bin": {
     "rdotswift": "./rdotswift.cli.js"
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "process.argv": "^0.1.0",
-    "rdotjson": "^0.1.0"
+    "rdotjson": "^0.1.2"
   },
   "devDependencies": {
     "jshint": "^2.9.2",
@@ -29,7 +29,7 @@
     "R",
     "XML",
     "iOS",
-    "swift"
+    "Swift"
   ],
   "license": "MIT",
   "main": "./rdotswift.js",
