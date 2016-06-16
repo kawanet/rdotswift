@@ -10,17 +10,19 @@ describe(TITLE, function() {
   it("color", function(done) {
     var R = {
       "color": {
-        "opaque_red": "#ff0000",
-        "invisible_red": "#00ff0000",
-        "translucent_red": "#80ff0000"
+        "rgb": "#369",
+        "argb": "#CF03",
+        "rrggbb": "#6699CC",
+        "aarrggbb": "#FF003366"
       }
     };
     var swift = rdotswift.format(R);
     assert.ok(swift);
     assert.ok(swift.indexOf('extension R.color') > -1);
-    assert.ok(swift.indexOf('static let opaque_red = UIColor(red: 1, green: 0, blue:0, alpha: 1') > -1);
-    assert.ok(swift.indexOf('static let invisible_red = UIColor(red: 1, green: 0, blue:0, alpha: 0') > -1);
-    assert.ok(swift.indexOf('static let translucent_red = UIColor(red: 1, green: 0, blue:0, alpha: 0.5') > -1);
+    assert.ok(swift.indexOf('static let rgb = UIColor(red: 0.2, green: 0.4, blue:0.6, alpha: 1') > -1);
+    assert.ok(swift.indexOf('static let argb = UIColor(red: 1, green: 0, blue:0.2, alpha: 0.8') > -1);
+    assert.ok(swift.indexOf('static let rrggbb = UIColor(red: 0.4, green: 0.6, blue:0.8, alpha: 1') > -1);
+    assert.ok(swift.indexOf('static let aarrggbb = UIColor(red: 0, green: 0.2, blue:0.4, alpha: 1') > -1);
     done();
   });
 });

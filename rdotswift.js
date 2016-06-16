@@ -115,6 +115,15 @@ function color(src, options) {
     rows.push(comment(val));
     var row = "    static let " + key + " = ";
     val += "";
+
+    // #RGB -> #RRGGBB
+    // #ARGB -> #AARRGGBB
+    if (val.search(/^#[0-9A-Fa-f]{3,4}$/) === 0) {
+      val = val.split("").map(function(c) {
+        return c + c;
+      }).join("").substr(1);
+    }
+
     if (val.match(/^#[0-9A-Fa-f]{6,8}$/)) {
       var rgb = parseInt(val.substr(1), 16);
       var blue = rgb & 0xFF;
