@@ -76,7 +76,7 @@ function integer(src, options) {
   for (var key in src) {
     var val = src[key];
     rows.push(comment(val));
-    var row = "    static let " + key + " = " + val;
+    var row = prefix(key) + " = " + val;
     rows.push(row);
   }
   return extension("integer", rows, options);
@@ -88,7 +88,7 @@ function array(src, options) {
     var val = src[key];
     rows.push(comment(val));
     val = JSON.stringify(val);
-    var row = "    static let " + key + " = " + val;
+    var row = prefix(key) + " = " + val;
     rows.push(row);
   }
   return extension("array", rows, options);
@@ -100,7 +100,7 @@ function string(src, options) {
     var val = src[key];
     rows.push(comment(val));
     val = JSON.stringify(val + "").replace(/\\\\/g, "\\");
-    var row = "    static let " + key + " = " + val;
+    var row = prefix(key) + " = " + val;
     rows.push(row);
   }
   return extension("string", rows, options);
@@ -113,7 +113,7 @@ function color(src, options) {
     var val = src[key];
     if (!val) return;
     rows.push(comment(val));
-    var row = "    static let " + key + " = ";
+    var row = prefix(key) + " = ";
     val += "";
 
     // #RGB -> #RRGGBB
@@ -152,7 +152,7 @@ function dimen(src, options) {
     var val = src[key];
     if (!val) return;
     rows.push(comment(val));
-    var row = "    static let " + key + ": CGFloat = " + parseFloat(val);
+    var row = prefix(key) + ": CGFloat = " + parseFloat(val);
     rows.push(row);
   }
   return extension("dimen", rows, options);
@@ -163,7 +163,7 @@ function bool(src, options) {
   for (var key in src) {
     var val = src[key];
     rows.push(comment(val));
-    var row = "    static let " + key + " = " + val;
+    var row = prefix(key) + " = " + val;
     rows.push(row);
   }
   return extension("bool", rows, options);
@@ -191,4 +191,8 @@ function comment(val) {
     val = val.substr(0, MAX_COMMENT_LENGTH) + "...";
   }
   return "    /// " + val;
+}
+
+function prefix(key) {
+  return "    static let " + key;
 }
