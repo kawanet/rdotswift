@@ -21,15 +21,17 @@
   "jshintConfig": {
     "eqnull": true,
     "node": true,
-    "undef": true
+    "undef": true,
+    "unused": true
   },
   "keywords": [
     "Android",
     "Java",
     "R",
+    "Swift",
     "XML",
     "iOS",
-    "Swift"
+    "strings.xml"
   ],
   "license": "MIT",
   "main": "./rdotswift.js",
@@ -39,7 +41,7 @@
   },
   "scripts": {
     "fixpack": "fixpack",
-    "jshint": "./node_modules/.bin/jshint *.js *.json test/*.js",
+    "jshint": "./node_modules/.bin/jshint *.js *.json test/*.js src/*/*.js",
     "mocha": "./node_modules/.bin/mocha -R spec test/*.js",
     "test": "npm run jshint && npm run mocha"
   }
