@@ -1,5 +1,7 @@
 # rdotswift
 
+[![Build Status](https://travis-ci.org/kawanet/rdotswift.svg?branch=master)](https://travis-ci.org/kawanet/rdotswift) [![npm version](https://badge.fury.io/js/rdotswift.svg)](https://badge.fury.io/js/rdotswift)
+
 res/values/strings.xml to R.swift
 
 ## SYNOPSIS
