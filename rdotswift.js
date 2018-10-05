@@ -2,6 +2,8 @@
 
 exports.format = format;
 
+var TokenKinds = require("./src/Syntax/TokenKinds");
+
 var CLASS = "class";
 var IF = "if";
 var TYPES = ["array", "bool", "color", "dimen", "integer", "string"];
@@ -194,5 +196,8 @@ function comment(val) {
 }
 
 function prefix(key) {
+  if (TokenKinds[key]) {
+    key = "`" + key + "`";
+  }
   return "    static let " + key;
 }
