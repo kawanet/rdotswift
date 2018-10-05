@@ -2,6 +2,7 @@
 
 exports.format = format;
 
+var Identifier = require("./src/ATS/Identifier");
 var TokenKinds = require("./src/Syntax/TokenKinds");
 
 var CLASS = "class";
@@ -196,6 +197,9 @@ function comment(val) {
 }
 
 function prefix(key) {
+  key = key.replace(Identifier.isOperatorStartCodePoint, "_");
+  key = key.replace(Identifier.isOperatorContinuationCodePoint, "_");
+
   if (TokenKinds[key]) {
     key = "`" + key + "`";
   }
