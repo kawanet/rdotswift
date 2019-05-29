@@ -59,12 +59,12 @@ function format(R, options) {
     out.push("");
   }
 
-  out = out.concat(array(R.array, options));
-  out = out.concat(bool(R.bool, options));
-  out = out.concat(color(R.color, options));
-  out = out.concat(dimen(R.dimen, options));
-  out = out.concat(integer(R.integer, options));
-  out = out.concat(string(R.string, options));
+  out = out.concat(makeExtension("array", R.array, arrayFilter, options));
+  out = out.concat(makeExtension("bool", R.bool, boolFilter, options));
+  out = out.concat(makeExtension("color", R.color, colorFilter, options));
+  out = out.concat(makeExtension("dimen", R.dimen, dimenFilter, options));
+  out = out.concat(makeExtension("integer", R.integer, integerFilter, options));
+  out = out.concat(makeExtension("string", R.string, stringFilter, options));
 
   if (options.endif || (options[IF] && options.endif !== false)) {
     out.push("#endif");
@@ -72,50 +72,25 @@ function format(R, options) {
   }
 
   return out.join("\n");
-}
 
-function integer(src, options) {
-  var rows = [];
-  for (var key in src) {
-    var val = src[key];
-    rows.push(comment(val));
-    var row = prefix(key) + " = " + val;
-    rows.push(row);
+  function integerFilter(key, val) {
+    return prefix(key) + " = " + val;
   }
-  return extension("integer", rows, options);
-}
 
-function array(src, options) {
-  var rows = [];
-  for (var key in src) {
-    var val = src[key];
-    rows.push(comment(val));
+  function arrayFilter(key, val) {
     val = JSON.stringify(val);
-    var row = prefix(key) + " = " + val;
-    rows.push(row);
+    val = prefix(key) + " = " + val;
+    return val;
   }
-  return extension("array", rows, options);
-}
 
-function string(src, options) {
-  var rows = [];
-  for (var key in src) {
-    var val = src[key];
-    rows.push(comment(val));
+  function stringFilter(key, val) {
     val = JSON.stringify(val + "").replace(/\\\\/g, "\\");
-    var row = prefix(key) + " = " + val;
-    rows.push(row);
+    return prefix(key) + " = " + val;
   }
-  return extension("string", rows, options);
-}
 
-function color(src, options) {
-  var rows = [];
-  var uicolor = options.appkit ? "NSColor" : "UIColor";
-  for (var key in src) {
-    var val = src[key];
+  function colorFilter(key, val) {
     if (!val) return;
-    rows.push(comment(val));
+
     var row = prefix(key) + " = ";
     val += "";
 
@@ -136,43 +111,43 @@ function color(src, options) {
       var red = rgb & 0xFF;
       rgb >>= 8;
       var alpha = (val.length === 9) ? (rgb & 0xFF) : 255;
+
+      var uicolor = options.appkit ? "NSColor" : "UIColor";
       row += uicolor + "(red: " + c(red) + ", green: " + c(green) + ", blue:" + c(blue) + ", alpha: " + c(alpha) + ")";
     } else {
       row += JSON.stringify(val);
     }
-    rows.push(row);
+
+    return row;
   }
-  return extension("color", rows, options);
 
   function c(val) {
     return Math.round(val / 255 * 1000) / 1000;
   }
-}
 
-function dimen(src, options) {
-  var rows = [];
-  for (var key in src) {
-    var val = src[key];
+  function dimenFilter(key, val) {
     if (!val) return;
-    rows.push(comment(val));
-    var row = prefix(key) + ": CGFloat = " + parseFloat(val);
-    rows.push(row);
+    return prefix(key) + ": CGFloat = " + parseFloat(val);
   }
-  return extension("dimen", rows, options);
+
+  function boolFilter(key, val) {
+    return prefix(key) + " = " + val;
+  }
 }
 
-function bool(src, options) {
+function makeExtension(type, src, filter, options) {
   var rows = [];
-  for (var key in src) {
-    var val = src[key];
-    rows.push(comment(val));
-    var row = prefix(key) + " = " + val;
-    rows.push(row);
-  }
-  return extension("bool", rows, options);
-}
 
-function extension(type, rows, options) {
+  if (src) Object.keys(src).forEach(function(key) {
+    var val = src[key];
+    var row = filter(key, val);
+    if (!row) return;
+
+    rows.push(makeComment(val));
+
+    rows.push(row);
+  });
+
   if (rows.length) {
     var className = options[CLASS] || "R";
     className += "." + type;
@@ -180,10 +155,11 @@ function extension(type, rows, options) {
     rows.push("}");
     rows.push("");
   }
+
   return rows;
 }
 
-function comment(val) {
+function makeComment(val) {
   if (val === "") val = "(empty)";
   val += "";
   val = val.replace(/\r/g, "\\r");
