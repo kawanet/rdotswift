@@ -1,7 +1,7 @@
 {
   "name": "rdotswift",
   "description": "res/values/strings.xml to R.swift",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "author": "@kawanet",
   "bin": {
     "rdotswift": "./rdotswift.cli.js"
@@ -14,8 +14,8 @@
     "rdotjson": "^0.1.3"
   },
   "devDependencies": {
-    "jshint": "^2.9.6",
-    "mocha": "^5.2.0"
+    "jshint": "^2.10.2",
+    "mocha": "^6.1.4"
   },
   "homepage": "https://github.com/kawanet/rdotswift#readme",
   "jshintConfig": {
