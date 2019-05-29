@@ -4,6 +4,35 @@
 
 res/values/strings.xml to R.swift
 
+## SWIFT SAMPLE
+
+```swift
+extension R.bool {
+    /// true
+    static let screen_small = true
+}
+
+extension R.color {
+    /// #3F51B5
+    static let colorPrimary = UIColor(red: 0.247, green: 0.318, blue:0.71, alpha: 1)
+}
+
+extension R.dimen {
+    /// 16dp
+    static let activity_horizontal_margin: CGFloat = 16
+}
+
+extension R.integer {
+    /// 75
+    static let max_speed = 75
+}
+
+extension R.string {
+    /// MyApp
+    static let app_name = "MyApp"
+}
+```
+
 ## SYNOPSIS
 
 ```sh
@@ -16,7 +45,7 @@ rdotswift app/src/production/res/values/*.xml --extension --if='!DEBUG' --output
 rdotswift app/src/develop/res/values/*.xml --extension --if=DEBUG --exclude='*_android' --output=R+develop.swift
 ```
 
-## OPTIONS
+## CLI OPTIONS
 
 `--appkit` - import AppKit for macOS application. default: import UIKit
 
@@ -31,6 +60,10 @@ rdotswift app/src/develop/res/values/*.xml --extension --if=DEBUG --exclude='*_a
 `--merge` - merge all resources. default: declare each resource respectively
 
 `--output=R.swift` - output file name. default: `-` (STDOUT)
+
+`--includeComments` - include postpositive XML comments located after value elements
+
+`--includeComments=pre` - include prepositive XML comments located before value elements
 
 `-` - input XML from STDIN
 
@@ -70,7 +103,7 @@ fs.writeFileSync("R.swift", swift);
 
 The MIT License (MIT)
 
-Copyright (c) 2016-2018 Yusuke Kawasaki
+Copyright (c) 2016-2019 Yusuke Kawasaki
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
