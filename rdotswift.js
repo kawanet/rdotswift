@@ -145,6 +145,15 @@ function makeExtension(type, src, filter, options) {
 
     rows.push(makeComment(val));
 
+    var comment = ("object" === typeof val) && val.comment;
+    if (comment instanceof Array) {
+      comment.forEach(function(str) {
+        if (str) rows.push(makeComment(str));
+      });
+    } else {
+      if (comment) rows.push(makeComment(comment));
+    }
+
     rows.push(row);
   });
 
