@@ -143,8 +143,6 @@ function makeExtension(type, src, filter, options) {
     var row = filter(key, val);
     if (!row) return;
 
-    rows.push(makeComment(val));
-
     var comment = ("object" === typeof val) && val.comment;
     if (comment instanceof Array) {
       comment.forEach(function(str) {
@@ -153,6 +151,8 @@ function makeExtension(type, src, filter, options) {
     } else {
       if (comment) rows.push(makeComment(comment));
     }
+
+    rows.push(makeComment(val));
 
     rows.push(row);
   });
