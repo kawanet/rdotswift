@@ -14,8 +14,11 @@ describe(TITLE, function() {
   it("comments.xml", function(done) {
     xml = fs.readFileSync(__dirname + "/values/comments.xml");
     assert.ok(xml);
+    done();
+  });
 
-    rdotjson(xml, function(err, R) {
+  it("{comment: null}", function(done) {
+    rdotjson(xml, {comment: null}, function(err, R) {
       assert.ok(!err, err);
       assert.ok(R);
       checkAll(R);
@@ -27,37 +30,59 @@ describe(TITLE, function() {
     });
   });
 
-  it("includeComments:true", function(done) {
-    rdotjson(xml, {includeComments: true}, function(err, R) {
+  it("{comment: 'post'}", function(done) {
+    rdotjson(xml, {comment: 'post'}, function(err, R) {
       assert.ok(!err, err);
       assert.ok(R);
       checkAll(R);
 
-      assert.equal(R.bool.screen_small.comment + "", "before bool,after bool,before color");
+      assert.equal(R.bool.screen_small.comment + "", "before bool,between bool", "R.bool.screen_small");
 
-      assert.equal(R.string.app_name.comment + "", "after string");
+      assert.equal(R.string.action_settings.comment + "", "after string", "R.string.action_settings");
 
       var swift = rdotswift.format(R);
       checkSwift(swift);
-      checkComments(swift);
+      checkBefore(swift);
+      checkAfter(swift);
+      checkBetween(swift);
 
       done();
     });
   });
 
-  it("includeComments:pre", function(done) {
-    rdotjson(xml, {includeComments: "pre"}, function(err, R) {
+  it("{comment: 'pre'},", function(done) {
+    rdotjson(xml, {comment: 'pre'}, function(err, R) {
       assert.ok(!err, err);
       assert.ok(R);
       checkAll(R);
 
-      assert.equal(R.bool.screen_small.comment + "", "before bool");
+      assert.equal(R.bool.screen_small.comment + "", "before bool", "R.bool.screen_small");
 
-      assert.equal(R.string.app_name.comment + "", "after integer,before string,after string");
+      assert.equal(R.string.action_settings.comment + "", "between string,after string", "R.string.action_settings");
 
       var swift = rdotswift.format(R);
       checkSwift(swift);
-      checkComments(swift);
+      checkBefore(swift);
+      checkAfter(swift);
+      checkBetween(swift);
+
+      done();
+    });
+  });
+
+  it("{comment: 'right'},", function(done) {
+    rdotjson(xml, {comment: 'right'}, function(err, R) {
+      assert.ok(!err, err);
+      assert.ok(R);
+      checkAll(R);
+
+      assert.equal(R.bool.screen_small.comment + "", "between bool", "R.bool.screen_small");
+
+      assert.equal(R.string.app_name.comment + "", "between string", "R.string.app_name");
+
+      var swift = rdotswift.format(R);
+      checkSwift(swift);
+      checkBetween(swift);
 
       done();
     });
@@ -99,15 +124,23 @@ function checkSwift(swift) {
   assert.ok(swift.indexOf('static let app_name = "MyApp"') > -1);
 }
 
-function checkComments(swift) {
+function checkBefore(swift) {
   assert.ok(swift.indexOf('/// before bool') > -1);
-  assert.ok(swift.indexOf('/// after bool') > -1);
   assert.ok(swift.indexOf('/// before color') > -1);
-  assert.ok(swift.indexOf('/// after color') > -1);
   assert.ok(swift.indexOf('/// before dimen') > -1);
-  assert.ok(swift.indexOf('/// after dimen') > -1);
   assert.ok(swift.indexOf('/// before integer') > -1);
-  assert.ok(swift.indexOf('/// after integer') > -1);
   assert.ok(swift.indexOf('/// before string') > -1);
+}
+
+function checkAfter(swift) {
+  assert.ok(swift.indexOf('/// after bool') > -1);
+  assert.ok(swift.indexOf('/// after color') > -1);
+  assert.ok(swift.indexOf('/// after dimen') > -1);
+  assert.ok(swift.indexOf('/// after integer') > -1);
   assert.ok(swift.indexOf('/// after string') > -1);
+}
+
+function checkBetween(swift) {
+  assert.ok(swift.indexOf('/// between bool') > -1);
+  assert.ok(swift.indexOf('/// between string') > -1);
 }
