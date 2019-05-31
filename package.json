@@ -1,6 +1,6 @@
 {
   "name": "rdotswift",
-  "description": "res/values/strings.xml to R.swift",
+  "description": "res/values/strings.xml to R.swift for iOS apps",
   "version": "1.0.0",
   "author": "@kawanet",
   "bin": {
@@ -27,11 +27,10 @@
   "keywords": [
     "Android",
     "Java",
-    "R",
+    "R.string",
     "Swift",
     "XML",
-    "iOS",
-    "strings.xml"
+    "iOS"
   ],
   "license": "MIT",
   "main": "./rdotswift.js",

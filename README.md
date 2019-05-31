@@ -47,31 +47,18 @@ rdotswift app/src/develop/res/values/*.xml --extension --if=DEBUG --exclude='*_a
 
 ## CLI OPTIONS
 
-`--appkit` - import AppKit for macOS application. default: import UIKit
-
-`--class=R` - class name. default: `R`
-
-`--exclude='*_android'` - key names to exclude. wildcard available
-
-`--extension` - extension only without `final class R {}` declaration
-
-`--if=DEBUG` - wrap with `#if DEBUG` ... `#endif` conditional compilation statement
-
-`--merge` - merge all resources. default: declare each resource respectively
-
-`--output=R.swift` - output file name. default: `-` (STDOUT)
-
-`--includeComments` - include postpositive XML comments located after value elements
-
-`--includeComments=pre` - include prepositive XML comments located before value elements
-
-`-` - input XML from STDIN
+- `--appkit` - import AppKit for macOS application. default: import UIKit
+- `--class=R` - class name. default: `R`
+- `--exclude='*_android'` - key names to exclude. wildcard available
+- `--extension` - extension only without `final class R {}` declaration
+- `--if=DEBUG` - wrap with `#if DEBUG` ... `#endif` conditional compilation statement
+- `--merge` - merge all resources. default: declare each resource respectively
+- `--comment=right` - include right-side comment within the same line on XML
+- `-` - input XML from STDIN
 
 ## INSTALL
 
 ```sh
-brew install node # for Mac users
-
 npm install -g rdotswift
 ```
 
@@ -95,9 +82,11 @@ var swift = rdotswift.format(R);
 fs.writeFileSync("R.swift", swift);
 ```
 
-## REPOSITORY
+## SEE ALSO
 
 - [https://github.com/kawanet/rdotswift](https://github.com/kawanet/rdotswift)
+- [https://github.com/kawanet/rdotjson](https://github.com/kawanet/rdotjson)
+- [https://developer.android.com/guide/topics/resources/string-resource](https://developer.android.com/guide/topics/resources/string-resource)
 
 ## LICENSE
 
