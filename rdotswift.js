@@ -84,7 +84,7 @@ function format(R, options) {
   }
 
   function stringFilter(key, val) {
-    val = JSON.stringify(val + "").replace(/\\\\/g, "\\");
+    val = JSON.stringify(val + "");
     return prefix(key) + " = " + val;
   }
 
