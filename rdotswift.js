@@ -140,10 +140,22 @@ function makeExtension(type, src, filter, options) {
 
   if (src) Object.keys(src).forEach(function(key) {
     var val = src[key];
+    var raw = val; // raw
+
+    if (options.objectMode && val) {
+      if (type === "array") {
+        val = val.map(function(val) {
+          return val.value;
+        });
+      } else {
+        val = val.value;
+      }
+    }
+
     var row = filter(key, val);
     if (!row) return;
 
-    var comment = ("object" === typeof val) && val.comment;
+    var comment = raw && raw.comment;
     if (comment instanceof Array) {
       comment.forEach(function(str) {
         if (str) rows.push(makeComment(str));
