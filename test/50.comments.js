@@ -38,7 +38,7 @@ describe(TITLE, function() {
 
       assert.equal(R.bool.screen_small.comment + "", "before bool,between bool", "R.bool.screen_small");
 
-      assert.equal(R.string.action_settings.comment + "", "after string", "R.string.action_settings");
+      assert.equal(R.string.action_settings.comment + "", "after string,before array", "R.string.action_settings");
 
       var swift = rdotswift.format(R);
       checkSwift(swift);
@@ -58,7 +58,7 @@ describe(TITLE, function() {
 
       assert.equal(R.bool.screen_small.comment + "", "before bool", "R.bool.screen_small");
 
-      assert.equal(R.string.action_settings.comment + "", "between string,after string", "R.string.action_settings");
+      assert.equal(R.string.action_settings.comment + "", "between string", "R.string.action_settings");
 
       var swift = rdotswift.format(R);
       checkSwift(swift);
@@ -103,6 +103,8 @@ function checkAll(R) {
   assert.equal(R.dimen.activity_horizontal_margin, "16dp");
   assert.equal(R.integer.max_speed, 75);
   assert.equal(R.string.app_name, "MyApp");
+  assert.equal(R.array.bits[0], 4);
+  assert.equal(R.array.planets_array[0], "Mercury");
 }
 
 function checkSwift(swift) {
@@ -122,6 +124,12 @@ function checkSwift(swift) {
 
   assert.ok(swift.indexOf('/// MyApp') > -1);
   assert.ok(swift.indexOf('static let app_name = "MyApp"') > -1);
+
+  assert.ok(swift.indexOf('/// 4') > -1);
+  assert.ok(swift.indexOf('static let bits = [4]') > -1);
+
+  assert.ok(swift.indexOf('/// Mercury') > -1);
+  assert.ok(swift.indexOf('static let planets_array = ["Mercury"]') > -1);
 }
 
 function checkBefore(swift) {
@@ -130,6 +138,7 @@ function checkBefore(swift) {
   assert.ok(swift.indexOf('/// before dimen') > -1);
   assert.ok(swift.indexOf('/// before integer') > -1);
   assert.ok(swift.indexOf('/// before string') > -1);
+  assert.ok(swift.indexOf('/// before array') > -1);
 }
 
 function checkAfter(swift) {
@@ -138,9 +147,11 @@ function checkAfter(swift) {
   assert.ok(swift.indexOf('/// after dimen') > -1);
   assert.ok(swift.indexOf('/// after integer') > -1);
   assert.ok(swift.indexOf('/// after string') > -1);
+  assert.ok(swift.indexOf('/// after array') > -1);
 }
 
 function checkBetween(swift) {
   assert.ok(swift.indexOf('/// between bool') > -1);
   assert.ok(swift.indexOf('/// between string') > -1);
+  assert.ok(swift.indexOf('/// between array') > -1);
 }
