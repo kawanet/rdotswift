@@ -11,8 +11,8 @@ var TITLE = __filename.replace(/^.*\//, "") + ":";
 describe(TITLE, function() {
   var xml;
 
-  it("comments.xml", function(done) {
-    xml = fs.readFileSync(__dirname + "/values/comments.xml");
+  it("values.xml", function(done) {
+    xml = fs.readFileSync(__dirname + "/values/values.xml");
     assert.ok(xml);
     done();
   });
