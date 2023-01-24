@@ -66,7 +66,7 @@ npm install -g rdotswift
 ## JavaScript API
 
 ```js
-var R = {
+const R = {
   color: {
     colorPrimary: "#3F51B5"
   },
@@ -78,7 +78,7 @@ var R = {
   }
 };
 
-var swift = rdotswift.format(R);
+const swift = rdotswift.format(R);
 
 fs.writeFileSync("R.swift", swift);
 ```
