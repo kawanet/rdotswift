@@ -1,6 +1,6 @@
 {
   "name": "rdotswift",
-  "description": "iOS Swift code generator for Android app's res/values/strings.xml",
+  "description": "iOS Swift code generator from Android app's res/values/strings.xml",
   "version": "1.0.4",
   "author": "@kawanet",
   "bin": {

@@ -3,9 +3,9 @@
 [![Node.js CI](https://github.com/kawanet/rdotswift/workflows/Node.js%20CI/badge.svg?branch=master)](https://github.com/kawanet/rdotswift/actions/)
 [![npm version](https://badge.fury.io/js/rdotswift.svg)](https://badge.fury.io/js/rdotswift)
 
-iOS Swift code generator for Android app's `res/values/strings.xml`
+iOS Swift code generator from Android app's `res/values/strings.xml`
 
-## SWIFT SAMPLE
+## GENERATED SWIFT SAMPLE
 
 ```swift
 extension R.bool {
