@@ -1,7 +1,7 @@
 {
   "name": "rdotswift",
-  "description": "res/values/strings.xml to R.swift for iOS apps",
-  "version": "1.0.3",
+  "description": "iOS Swift code generator for Android app's res/values/strings.xml",
+  "version": "1.0.4",
   "author": "@kawanet",
   "bin": {
     "rdotswift": "./rdotswift.cli.js"
@@ -10,12 +10,12 @@
     "url": "https://github.com/kawanet/rdotswift/issues"
   },
   "dependencies": {
-    "process.argv": "^0.1.0",
-    "rdotjson": "^1.0.3"
+    "process.argv": "^0.6.0",
+    "rdotjson": "^1.0.4"
   },
   "devDependencies": {
-    "jshint": "^2.10.2",
-    "mocha": "^6.1.4"
+    "jshint": "^2.13.6",
+    "mocha": "^10.2.0"
   },
   "homepage": "https://github.com/kawanet/rdotswift#readme",
   "jshintConfig": {
@@ -24,6 +24,10 @@
     "undef": true,
     "unused": true
   },
+  "files": [
+    "*.js",
+    "src"
+  ],
   "keywords": [
     "Android",
     "Java",
@@ -42,6 +46,7 @@
     "fixpack": "fixpack",
     "jshint": "./node_modules/.bin/jshint *.js *.json test/*.js src/*/*.js",
     "mocha": "./node_modules/.bin/mocha -R spec test/*.js",
+    "prepack": "npm test",
     "test": "npm run jshint && npm run mocha"
   }
 }
