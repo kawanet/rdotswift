@@ -1,15 +1,15 @@
 #!/usr/bin/env mocha -R spec
 
-var assert = require("assert");
-var fs = require("fs");
-var rdotjson = require("rdotjson");
-var rdotswift = require("../rdotswift");
-var TITLE = __filename.replace(/^.*\//, "") + ":";
+const assert = require("assert");
+const fs = require("fs");
+const rdotjson = require("rdotjson");
+const rdotswift = require("../rdotswift");
+const TITLE = __filename.replace(/^.*\//, "") + ":";
 
 /* jshint mocha:true */
 
 describe(TITLE, function() {
-  var xml;
+  let xml;
 
   it("values.xml", function(done) {
     xml = fs.readFileSync(__dirname + "/values/values.xml");
@@ -23,7 +23,7 @@ describe(TITLE, function() {
       assert.ok(R);
       checkAll(R);
 
-      var swift = rdotswift.format(R);
+      const swift = rdotswift.format(R);
       checkSwift(swift);
 
       done();
@@ -40,7 +40,7 @@ describe(TITLE, function() {
 
       assert.equal(R.string.action_settings.comment + "", "after string,before array", "R.string.action_settings");
 
-      var swift = rdotswift.format(R);
+      const swift = rdotswift.format(R);
       checkSwift(swift);
       checkBefore(swift);
       checkAfter(swift);
@@ -60,7 +60,7 @@ describe(TITLE, function() {
 
       assert.equal(R.string.action_settings.comment + "", "between string", "R.string.action_settings");
 
-      var swift = rdotswift.format(R);
+      const swift = rdotswift.format(R);
       checkSwift(swift);
       checkBefore(swift);
       checkAfter(swift);
@@ -80,7 +80,7 @@ describe(TITLE, function() {
 
       assert.equal(R.string.app_name.comment + "", "between string", "R.string.app_name");
 
-      var swift = rdotswift.format(R);
+      const swift = rdotswift.format(R);
       checkSwift(swift);
       checkBetween(swift);
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env mocha -R spec
 
-var assert = require("assert");
-var rdotswift = require("../rdotswift");
-var TITLE = __filename.replace(/^.*\//, "") + ":";
+const assert = require("assert");
+const rdotswift = require("../rdotswift");
+const TITLE = __filename.replace(/^.*\//, "") + ":";
 
 /* jshint mocha:true */
 
@@ -18,7 +18,7 @@ describe(TITLE, function() {
    * </resources>
    */
 
-  var R = {
+  const R = {
     "string": {
       "slash": "[\\]",
       "newline": "[\n]",
@@ -28,7 +28,7 @@ describe(TITLE, function() {
   };
 
   it("backslash", function() {
-    var swift = rdotswift.format(R);
+    const swift = rdotswift.format(R);
     assert.ok(swift);
 
     // [\]
