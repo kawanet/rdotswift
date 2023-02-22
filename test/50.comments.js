@@ -1,6 +1,6 @@
 #!/usr/bin/env mocha -R spec
 
-const assert = require("assert");
+const assert = require("assert").strict;
 const fs = require("fs");
 const rdotjson = require("rdotjson");
 const rdotswift = require("../rdotswift");
@@ -98,13 +98,14 @@ function checkAll(R) {
   assert.ok(R.integer);
   assert.ok(R.string);
 
-  assert.equal(R.bool.screen_small, true);
-  assert.equal(R.color.colorPrimary + "", "#3F51B5");
-  assert.equal(R.dimen.activity_horizontal_margin, "16dp");
-  assert.equal(R.integer.max_speed, 75);
-  assert.equal(R.string.app_name, "MyApp");
-  assert.equal(R.array.bits[0], 4);
-  assert.equal(R.array.planets_array[0], "Mercury");
+  assert.equal(Boolean(+R.bool.screen_small), true);
+  assert.equal(Boolean(+R.bool.adjust_view_bounds), false);
+  assert.equal(String(R.color.colorPrimary), "#3F51B5");
+  assert.equal(String(R.dimen.activity_horizontal_margin), "16dp");
+  assert.equal(Number(R.integer.max_speed), 75);
+  assert.equal(String(R.string.app_name), "MyApp");
+  assert.equal(Number(R.array.bits[0]), 4);
+  assert.equal(String(R.array.planets_array[0]), "Mercury");
 }
 
 function checkSwift(swift) {
