@@ -1,13 +1,13 @@
 #!/usr/bin/env mocha -R spec
 
-var assert = require("assert");
-var rdotswift = require("../rdotswift");
-var TITLE = __filename.replace(/^.*\//, "") + ":";
+const assert = require("assert").strict;
+const rdotswift = require("../rdotswift");
+const TITLE = __filename.replace(/^.*\//, "") + ":";
 
 /* jshint mocha:true */
 
 describe(TITLE, function() {
-  var R = {
+  const R = {
     string: {
       "associatedtype": "DECL_KEYWORD",
       "undef": "SIL_KEYWORD",
@@ -22,7 +22,7 @@ describe(TITLE, function() {
   };
 
   it("TokenKinds", function(done) {
-    var swift = rdotswift.format(R);
+    const swift = rdotswift.format(R);
     assert.ok(swift);
     assert.ok(swift.indexOf('static let `associatedtype` = "DECL_KEYWORD"') > -1);
     assert.ok(swift.indexOf('static let `undef` = "SIL_KEYWORD"') > -1);

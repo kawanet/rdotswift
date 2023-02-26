@@ -1,14 +1,14 @@
 #!/usr/bin/env mocha -R spec
 
-var assert = require("assert");
-var rdotswift = require("../rdotswift");
-var TITLE = __filename.replace(/^.*\//, "") + ":";
+const assert = require("assert").strict;
+const rdotswift = require("../rdotswift");
+const TITLE = __filename.replace(/^.*\//, "") + ":";
 
 /* jshint mocha:true */
 
 describe(TITLE, function() {
   it("integer", function(done) {
-    var R = {
+    const R = {
       "integer": {
         "max_speed": 75,
         "min_speed": 5
@@ -17,7 +17,7 @@ describe(TITLE, function() {
         "bits": [4, 8, 16, 32]
       }
     };
-    var swift = rdotswift.format(R);
+    const swift = rdotswift.format(R);
     assert.ok(swift);
     assert.ok(swift.indexOf('extension R.array') > -1);
     assert.ok(swift.indexOf('static let bits = [4,8,16,32]') > -1);

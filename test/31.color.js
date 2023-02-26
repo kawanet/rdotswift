@@ -1,14 +1,14 @@
 #!/usr/bin/env mocha -R spec
 
-var assert = require("assert");
-var rdotswift = require("../rdotswift");
-var TITLE = __filename.replace(/^.*\//, "") + ":";
+const assert = require("assert").strict;
+const rdotswift = require("../rdotswift");
+const TITLE = __filename.replace(/^.*\//, "") + ":";
 
 /* jshint mocha:true */
 
 describe(TITLE, function() {
   it("color", function(done) {
-    var R = {
+    const R = {
       "color": {
         "rgb": "#369",
         "argb": "#CF03",
@@ -16,7 +16,7 @@ describe(TITLE, function() {
         "aarrggbb": "#FF003366"
       }
     };
-    var swift = rdotswift.format(R);
+    const swift = rdotswift.format(R);
     assert.ok(swift);
     assert.ok(swift.indexOf('extension R.color') > -1);
     assert.ok(swift.indexOf('static let rgb = UIColor(red: 0.2, green: 0.4, blue:0.6, alpha: 1') > -1);
