@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "process.argv": "^0.6.1",
-    "rdotjson": "^1.0.4"
+    "rdotjson": "^1.1.0"
   },
   "devDependencies": {
     "jshint": "^2.13.6",
