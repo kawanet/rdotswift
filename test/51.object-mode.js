@@ -1,27 +1,27 @@
 #!/usr/bin/env mocha -R spec
 
-var assert = require("assert");
-var fs = require("fs");
-var rdotjson = require("rdotjson");
-var rdotswift = require("../rdotswift");
-var TITLE = __filename.replace(/^.*\//, "") + ":";
+const assert = require("assert").strict;
+const fs = require("fs");
+const rdotjson = require("rdotjson");
+const rdotswift = require("../rdotswift");
+const TITLE = __filename.replace(/^.*\//, "") + ":";
 
 /* jshint mocha:true */
 
 describe(TITLE, function() {
-  var xml;
+  let xml;
 
   it("{objectMode: true}", function(done) {
     xml = fs.readFileSync(__dirname + "/values/values.xml");
     assert.ok(xml);
 
-    var options = {objectMode: true};
+    const options = {objectMode: true};
 
     rdotjson(xml, options, function(err, R) {
       assert.ok(!err, err);
       checkAll(R);
 
-      var swift = rdotswift.format(R, options);
+      const swift = rdotswift.format(R, options);
       checkSwift(swift);
 
       done();
