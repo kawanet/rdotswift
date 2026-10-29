@@ -1,4 +1,8 @@
 /**
+ * @see https://github.com/swiftlang/swift/blob/main/include/swift/AST/Identifier.h
+ */
+
+/**
  * /// isOperatorStartCodePoint - Return true if the specified code point is a
  * /// valid start of an operator.
  * static bool isOperatorStartCodePoint(uint32_t C) {
