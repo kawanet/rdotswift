@@ -1,7 +1,7 @@
 # rdotswift
 
-[![Node.js CI](https://github.com/kawanet/rdotswift/workflows/Node.js%20CI/badge.svg?branch=master)](https://github.com/kawanet/rdotswift/actions/)
-[![npm version](https://badge.fury.io/js/rdotswift.svg)](https://badge.fury.io/js/rdotswift)
+[![Node.js CI](https://github.com/kawanet/rdotswift/workflows/Node.js%20CI/badge.svg?branch=main)](https://github.com/kawanet/rdotswift/actions/)
+[![npm version](https://img.shields.io/npm/v/rdotswift)](https://www.npmjs.com/package/rdotswift)
 
 iOS Swift code generator from Android app's `res/values/strings.xml`
 
