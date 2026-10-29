@@ -1,7 +1,7 @@
 {
   "name": "rdotswift",
   "description": "iOS Swift code generator from Android app's res/values/strings.xml",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "@kawanet",
   "bin": {
     "rdotswift": "./rdotswift.cli.js"
@@ -10,12 +10,22 @@
     "url": "https://github.com/kawanet/rdotswift/issues"
   },
   "dependencies": {
-    "process.argv": "^0.6.1",
-    "rdotjson": "^1.1.0"
+    "process.argv": "^1.0.0",
+    "rdotjson": "^2.0.0"
   },
   "devDependencies": {
     "jshint": "^2.13.6",
     "mocha": "^10.2.0"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=22.18.0",
+      "onFail": "warn"
+    }
+  },
+  "engines": {
+    "node": ">=20.19.0"
   },
   "files": [
     "*.js",
