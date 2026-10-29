@@ -17,7 +17,7 @@ describe(TITLE, function() {
       "as": "EXPR_KEYWORD",
       "__FILE__": "KEYWORD",
       "_": "PAT_KEYWORD",
-      "filePath": "POUND_KEYWORD",
+      "keyPath": "POUND_KEYWORD",
       "sourceLocation": "POUND_DIRECTIVE_KEYWORD",
       "endif": "POUND_COND_DIRECTIVE_KEYWORD",
     }
@@ -28,13 +28,13 @@ describe(TITLE, function() {
     assert.ok(swift);
     assert.ok(swift.indexOf('static let `inout` = "SWIFT_KEYWORD"') > -1);
     assert.ok(swift.indexOf('static let `associatedtype` = "DECL_KEYWORD"') > -1);
-    assert.ok(swift.indexOf('static let `undef` = "SIL_KEYWORD"') > -1);
+    assert.ok(swift.indexOf('static let undef = "SIL_KEYWORD"') > -1);
     assert.ok(swift.indexOf('static let `defer` = "STMT_KEYWORD"') > -1);
     assert.ok(swift.indexOf('static let `if` = "STMT_KEYWORD"') > -1);
     assert.ok(swift.indexOf('static let `as` = "EXPR_KEYWORD"') > -1);
     assert.ok(swift.indexOf('static let __FILE__ = "KEYWORD"') > -1);
     assert.ok(swift.indexOf('static let `_` = "PAT_KEYWORD"') > -1);
-    assert.ok(swift.indexOf('static let filePath = "POUND_KEYWORD"') > -1);
+    assert.ok(swift.indexOf('static let keyPath = "POUND_KEYWORD"') > -1);
     assert.ok(swift.indexOf('static let sourceLocation = "POUND_DIRECTIVE_KEYWORD"') > -1);
     assert.ok(swift.indexOf('static let endif = "POUND_COND_DIRECTIVE_KEYWORD"') > -1);
     done();
