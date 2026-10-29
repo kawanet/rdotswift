@@ -8,6 +8,7 @@ const TokenKinds = require("./src/Syntax/TokenKinds");
 const CLASS = "class";
 const IF = "if";
 const TYPES = ["array", "bool", "color", "dimen", "integer", "string"];
+const RESERVED_MEMBER = {Type: 1, Protocol: 1};
 const MAX_COMMENT_LENGTH = 64;
 
 /**
@@ -197,7 +198,7 @@ function prefix(key) {
   key = key.replace(Identifier.isOperatorStartCodePoint, "_");
   key = key.replace(Identifier.isOperatorContinuationCodePoint, "_");
 
-  if (TokenKinds[key]) {
+  if (TokenKinds[key] || RESERVED_MEMBER[key]) {
     key = "`" + key + "`";
   }
   return "    static let " + key;
