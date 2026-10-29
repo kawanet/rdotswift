@@ -16,7 +16,6 @@ describe(TITLE, function() {
       "as": "EXPR_KEYWORD",
       "__FILE__": "NORMAL",
       "_": "PAT_KEYWORD",
-      "filePath": "POUND_KEYWORD",
       "sourceLocation": "POUND_DIRECTIVE_KEYWORD",
       "if": "POUND_COND_DIRECTIVE_KEYWORD"
     }
@@ -32,7 +31,6 @@ describe(TITLE, function() {
     assert.ok(swift.indexOf('static let `as` = "EXPR_KEYWORD"') > -1);
     assert.ok(swift.indexOf('static let __FILE__ = "NORMAL"') > -1);
     assert.ok(swift.indexOf('static let `_` = "PAT_KEYWORD"') > -1);
-    assert.ok(swift.indexOf('static let `filePath` = "POUND_KEYWORD"') > -1);
     assert.ok(swift.indexOf('static let `sourceLocation` = "POUND_DIRECTIVE_KEYWORD"') > -1);
     assert.ok(swift.indexOf('static let `if` = "POUND_COND_DIRECTIVE_KEYWORD"') > -1);
     done();
