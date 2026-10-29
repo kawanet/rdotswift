@@ -14,8 +14,7 @@
     "rdotjson": "^2.0.0"
   },
   "devDependencies": {
-    "jshint": "^2.13.6",
-    "mocha": "^10.2.0"
+    "jshint": "^2.13.6"
   },
   "devEngines": {
     "runtime": {
@@ -29,7 +28,7 @@
   },
   "files": [
     "*.js",
-    "src"
+    "src/*/*.js"
   ],
   "homepage": "https://github.com/kawanet/rdotswift#readme",
   "jshintConfig": {
@@ -58,8 +57,7 @@
   "scripts": {
     "fixpack": "fixpack",
     "jshint": "./node_modules/.bin/jshint .",
-    "mocha": "./node_modules/.bin/mocha -R spec test/*.js",
     "prepack": "npm test",
-    "test": "npm run jshint && npm run mocha"
+    "test": "npm run jshint && node --test test/*.js"
   }
 }

@@ -1,10 +1,7 @@
-#!/usr/bin/env mocha -R spec
-
-const assert = require("assert").strict;
+const {describe, it} = require("node:test");
+const assert = require("node:assert").strict;
 const rdotswift = require("../rdotswift");
 const TITLE = __filename.replace(/^.*\//, "") + ":";
-
-/* jshint mocha:true */
 
 describe(TITLE, function() {
   const R = {
@@ -23,7 +20,7 @@ describe(TITLE, function() {
     }
   };
 
-  it("TokenKinds", function(done) {
+  it("TokenKinds", function() {
     const swift = rdotswift.format(R);
     assert.ok(swift);
     assert.ok(swift.indexOf('static let `inout` = "SWIFT_KEYWORD"') > -1);
@@ -37,6 +34,5 @@ describe(TITLE, function() {
     assert.ok(swift.indexOf('static let keyPath = "POUND_KEYWORD"') > -1);
     assert.ok(swift.indexOf('static let sourceLocation = "POUND_DIRECTIVE_KEYWORD"') > -1);
     assert.ok(swift.indexOf('static let endif = "POUND_COND_DIRECTIVE_KEYWORD"') > -1);
-    done();
   });
 });

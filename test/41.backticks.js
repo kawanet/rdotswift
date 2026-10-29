@@ -1,10 +1,7 @@
-#!/usr/bin/env mocha -R spec
-
-const assert = require("assert").strict;
+const {describe, it} = require("node:test");
+const assert = require("node:assert").strict;
 const rdotswift = require("../rdotswift");
 const TITLE = __filename.replace(/^.*\//, "") + ":";
-
-/* jshint mocha:true */
 
 describe(TITLE, function() {
   const R = {
@@ -16,7 +13,7 @@ describe(TITLE, function() {
     }
   };
 
-  it("backticks", function(done) {
+  it("backticks", function() {
     const swift = rdotswift.format(R);
     assert.ok(swift);
 
@@ -28,7 +25,5 @@ describe(TITLE, function() {
      */
     assert.ok(swift.indexOf('static let `Type` = "TYPE"') > -1);
     assert.ok(swift.indexOf('static let `Protocol` = "PROTOCOL"') > -1);
-
-    done();
   });
 });

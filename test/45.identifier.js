@@ -1,10 +1,7 @@
-#!/usr/bin/env mocha -R spec
-
-const assert = require("assert").strict;
+const {describe, it} = require("node:test");
+const assert = require("node:assert").strict;
 const rdotswift = require("../rdotswift");
 const TITLE = __filename.replace(/^.*\//, "") + ":";
-
-/* jshint mocha:true */
 
 describe(TITLE, function() {
   const R = {
@@ -15,12 +12,11 @@ describe(TITLE, function() {
     }
   };
 
-  it("Identifier", function(done) {
+  it("Identifier", function() {
     const swift = rdotswift.format(R);
     assert.ok(swift);
     assert.ok(swift.indexOf('static let foo_foo = "FOO.FOO"') > -1);
     assert.ok(swift.indexOf('static let bar_bar = "BAR\uFE00BAR"') > -1);
     assert.ok(swift.indexOf('static let baz____baz = "BAZ..\uFE00\uFE00BAZ"') > -1);
-    done();
   });
 });
