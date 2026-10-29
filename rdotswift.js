@@ -198,7 +198,7 @@ function prefix(key) {
   key = key.replace(Identifier.isOperatorStartCodePoint, "_");
   key = key.replace(Identifier.isOperatorContinuationCodePoint, "_");
 
-  if (TokenKinds[key] || RESERVED_MEMBER[key]) {
+  if (TokenKinds[key] === 1 || RESERVED_MEMBER[key] === 1) {
     key = "`" + key + "`";
   }
   return "    static let " + key;

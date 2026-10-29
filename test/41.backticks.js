@@ -9,6 +9,8 @@ const TITLE = __filename.replace(/^.*\//, "") + ":";
 describe(TITLE, function() {
   const R = {
     string: {
+      "valueOf": "VALUEOF",
+      "toString": "TOSTRING",
       "Type": "TYPE",
       "Protocol": "PROTOCOL",
     }
@@ -17,6 +19,9 @@ describe(TITLE, function() {
   it("backticks", function(done) {
     const swift = rdotswift.format(R);
     assert.ok(swift);
+
+    assert.ok(swift.indexOf('static let valueOf = "VALUEOF"') > -1);
+    assert.ok(swift.indexOf('static let toString = "TOSTRING"') > -1);
 
     /**
      * @see https://github.com/swiftlang/swift/blob/main/lib/Sema/TypeCheckDeclPrimary.cpp
