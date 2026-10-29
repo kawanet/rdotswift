@@ -1,10 +1,7 @@
-#!/usr/bin/env mocha -R spec
-
-const assert = require("assert").strict;
+const {describe, it} = require("node:test");
+const assert = require("node:assert").strict;
 const rdotswift = require("../rdotswift");
 const TITLE = __filename.replace(/^.*\//, "") + ":";
-
-/* jshint mocha:true */
 
 describe(TITLE, function() {
 

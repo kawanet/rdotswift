@@ -1,17 +1,15 @@
-#!/usr/bin/env mocha -R spec
-
-const assert = require("assert").strict;
+const {describe, it} = require("node:test");
+const assert = require("node:assert").strict;
 const fs = require("fs");
 const rdotjson = require("rdotjson");
 const rdotswift = require("../rdotswift");
 const TITLE = __filename.replace(/^.*\//, "") + ":";
 
-/* jshint mocha:true */
-
 describe(TITLE, function() {
   let xml;
 
-  it("{objectMode: true}", function(done) {
+  it("{objectMode: true}", {timeout: 1000}, () => new Promise((resolve, reject) => {
+    const done = (err) => (err ? reject(err) : resolve());
     xml = fs.readFileSync(__dirname + "/values/values.xml");
     assert.ok(xml);
 
@@ -26,7 +24,7 @@ describe(TITLE, function() {
 
       done();
     });
-  });
+  }));
 });
 
 function checkAll(R) {

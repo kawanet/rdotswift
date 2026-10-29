@@ -1,10 +1,7 @@
-#!/usr/bin/env mocha -R spec
-
-const assert = require("assert").strict;
+const {describe, it} = require("node:test");
+const assert = require("node:assert").strict;
 const rdotswift = require("../rdotswift");
 const TITLE = __filename.replace(/^.*\//, "") + ":";
-
-/* jshint mocha:true */
 
 describe(TITLE, function() {
   const R = {
@@ -19,7 +16,7 @@ describe(TITLE, function() {
     }
   };
 
-  it("format()", function(done) {
+  it("format()", function() {
     const swift = rdotswift.format(R);
     assert.ok(swift);
     assert.ok(swift.indexOf('#if DEBUG') < 0);
@@ -32,42 +29,37 @@ describe(TITLE, function() {
     assert.ok(swift.indexOf('extension R.string') > -1);
     assert.ok(swift.indexOf('static let app_name = "MyApp"') > -1);
     assert.ok(swift.indexOf('#endif') < 0);
-    done();
   });
 
   const opt_appkit = {"appkit": true};
-  it(JSON.stringify(opt_appkit), function(done) {
+  it(JSON.stringify(opt_appkit), function() {
     const swift = rdotswift.format(R, opt_appkit);
     assert.ok(swift);
     assert.ok(swift.indexOf('import AppKit') > -1);
     assert.ok(swift.indexOf('static let colorPrimary = NSColor(red: 0.247, green: 0.318, blue:0.71, alpha: 1)') > -1);
-    done();
   });
 
   const opt_extension = {"extension": true};
-  it(JSON.stringify(opt_extension), function(done) {
+  it(JSON.stringify(opt_extension), function() {
     const swift = rdotswift.format(R, opt_extension);
     assert.ok(swift);
     assert.ok(swift.indexOf('final class R') < 0);
     assert.ok(swift.indexOf('extension R.color') > -1);
-    done();
   });
 
   const opt_class = {"class": "RRR"};
-  it(JSON.stringify(opt_class), function(done) {
+  it(JSON.stringify(opt_class), function() {
     const swift = rdotswift.format(R, opt_class);
     assert.ok(swift);
     assert.ok(swift.indexOf('final class RRR') > -1);
     assert.ok(swift.indexOf('extension RRR.color') > -1);
-    done();
   });
 
   const opt_if = {"if": "DEBUG"};
-  it(JSON.stringify(opt_if), function(done) {
+  it(JSON.stringify(opt_if), function() {
     const swift = rdotswift.format(R, opt_if);
     assert.ok(swift);
     assert.ok(swift.indexOf('#if DEBUG') > -1);
     assert.ok(swift.indexOf('#endif') > -1);
-    done();
   });
 });
