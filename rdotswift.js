@@ -194,7 +194,7 @@ function literal(val) {
 
 // the Swift spelling of a control character
 function spell(c) {
-  return "\\u{" + ("000" + c.charCodeAt(0).toString(16)).substr(-4) + "}";
+  return "\\u{" + c.charCodeAt(0).toString(16).padStart(4, "0") + "}";
 }
 
 function makeComment(val) {
