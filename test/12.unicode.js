@@ -8,7 +8,7 @@ describe(TITLE, function() {
     "string": {
       "tab": "[\t]",
       "star": "[★]",
-      "nbsp": "[ ]",
+      "nbsp": "[\u00a0]",
       "control": "[\u0001]",
       "nul": "[\u0000]",
       "backspace": "[\b]",
@@ -32,7 +32,7 @@ describe(TITLE, function() {
 
     // a character outside ASCII is written as it is
     assert.ok(swift.indexOf('static let star = "[★]"') > -1);
-    assert.ok(swift.indexOf('static let nbsp = "[ ]"') > -1);
+    assert.ok(swift.indexOf('static let nbsp = "[\u00a0]"') > -1);
 
     // a control character is written as \u{XXXX}
     assert.ok(swift.indexOf('static let control = "[\\u{0001}]"') > -1);
