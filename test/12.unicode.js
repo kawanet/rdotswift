@@ -38,15 +38,15 @@ describe(TITLE, function() {
     // a control character is written as \u{XXXX}
     assert.ok(swift.indexOf('static let control = "[\\u{0001}]"') > -1);
     assert.ok(swift.indexOf('static let nul = "[\\u{0000}]"') > -1);
-    assert.ok(swift.indexOf('static let del = "[\\u{7F}]"') > -1);
+    assert.ok(swift.indexOf('static let del = "[\\u{007f}]"') > -1);
 
     // the comment line spells a control character as \u{XXXX} too
     assert.ok(swift.indexOf('/// [\\u{0001}]') > -1);
     assert.ok(swift.indexOf('/// [\\u{0000}]') > -1);
     assert.ok(swift.indexOf('/// [\\u{007f}]') > -1);
     assert.ok(swift.indexOf('/// [\\u{0008}]') > -1);
-    assert.ok(swift.indexOf('static let backspace = "[\\u{8}]"') > -1);
-    assert.ok(swift.indexOf('static let formfeed = "[\\u{C}]"') > -1);
+    assert.ok(swift.indexOf('static let backspace = "[\\u{0008}]"') > -1);
+    assert.ok(swift.indexOf('static let formfeed = "[\\u{000c}]"') > -1);
 
     // a backslash followed by u in the text is not an escape
     assert.ok(swift.indexOf('static let literal = "[\\\\u0041]"') > -1);

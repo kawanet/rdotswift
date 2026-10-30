@@ -10,8 +10,7 @@ const IF = "if";
 const TYPES = ["array", "bool", "color", "dimen", "integer", "string"];
 const RESERVED_MEMBER = {Type: 1, Protocol: 1};
 const MAX_COMMENT_LENGTH = 64;
-const SWIFT_ESCAPE = {b: "\\u{8}", f: "\\u{C}"};
-const SWIFT_CONTROL = {"\x7f": "\\u{7F}"};
+const JSON_ESCAPE = {b: "\b", f: "\f"};
 
 /**
  * generates Swift source code
@@ -183,19 +182,19 @@ function makeExtension(type, src, filter, options) {
   return rows;
 }
 
-/**
- * Swift has no \b, \f or \uXXXX escape. The JSON form is close enough that
- * only those three need to be respelled as \u{...}.
- */
-
+// JSON.stringify writes a control character as \uXXXX, \b, \f or the raw DEL.
 function literal(val) {
-  const json = JSON.stringify(val).replace(/\\(u[0-9a-f]{4}|.)/g, function(match, esc) {
+  return JSON.stringify(val).replace(/\\(u[0-9a-f]{4}|.)|\x7f/g, function(match, esc) {
+    if (esc == null) return spell(match);
     if (esc[0] === "u") return "\\u{" + esc.substr(1) + "}";
-    return SWIFT_ESCAPE[esc] || match;
+    if (JSON_ESCAPE[esc]) return spell(JSON_ESCAPE[esc]);
+    return match;
   });
-  return json.replace(/\x7f/g, function(match) {
-    return SWIFT_CONTROL[match];
-  });
+}
+
+// the Swift spelling of a control character
+function spell(c) {
+  return "\\u{" + ("000" + c.charCodeAt(0).toString(16)).substr(-4) + "}";
 }
 
 function makeComment(val) {
@@ -205,10 +204,7 @@ function makeComment(val) {
   val = val.replace(/\n/g, "\\n");
   val = val.replace(/\t/g, "\\t");
   val = val.replace(/\s+/g, " ");
-  // spelled out as \u{XXXX}, so the comment shows what the value holds
-  val = val.replace(/[\x00-\x1f\x7f]/g, function(c) {
-    return "\\u{" + ("000" + c.charCodeAt(0).toString(16)).substr(-4) + "}";
-  });
+  val = val.replace(/[\x00-\x1f\x7f]/g, spell);
   if (val.length > MAX_COMMENT_LENGTH) {
     val = val.substr(0, MAX_COMMENT_LENGTH) + "...";
   }
