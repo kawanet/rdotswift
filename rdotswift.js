@@ -2,8 +2,8 @@
 
 exports.format = format;
 
-const Identifier = require("./src/ATS/Identifier");
-const TokenKinds = require("./src/Syntax/TokenKinds");
+const Identifier = require("./src/ATS/Identifier.js");
+const Keyword = require("./src/Syntax/TokenKinds.js").Keyword;
 
 const CLASS = "class";
 const IF = "if";
@@ -198,7 +198,7 @@ function prefix(key) {
   key = key.replace(Identifier.isOperatorStartCodePoint, "_");
   key = key.replace(Identifier.isOperatorContinuationCodePoint, "_");
 
-  if (TokenKinds[key] === 1 || RESERVED_MEMBER[key] === 1) {
+  if (Keyword[key] === 1 || RESERVED_MEMBER[key] === 1) {
     key = "`" + key + "`";
   }
   return "    static let " + key;
