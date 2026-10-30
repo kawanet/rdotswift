@@ -1,4 +1,5 @@
-function KEYWORD(v) { exports[v]=1; }
+const Keyword = exports.Keyword = {};
+const KEYWORD = (v) => (Keyword[v] = 1);
 KEYWORD("associatedtype");
 KEYWORD("class");
 KEYWORD("deinit");
