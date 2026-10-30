@@ -11,6 +11,7 @@ describe(TITLE, function() {
       "nbsp": "[\u00a0]",
       "control": "[\u0001]",
       "nul": "[\u0000]",
+      "del": "[\u007f]",
       "backspace": "[\b]",
       "formfeed": "[\f]",
       "literal": "[\\u0041]"
@@ -37,10 +38,12 @@ describe(TITLE, function() {
     // a control character is written as \u{XXXX}
     assert.ok(swift.indexOf('static let control = "[\\u{0001}]"') > -1);
     assert.ok(swift.indexOf('static let nul = "[\\u{0000}]"') > -1);
+    assert.ok(swift.indexOf('static let del = "[\\u{007f}]"') > -1);
 
     // the comment line spells a control character as \u{XXXX} too
     assert.ok(swift.indexOf('/// [\\u{0001}]') > -1);
     assert.ok(swift.indexOf('/// [\\u{0000}]') > -1);
+    assert.ok(swift.indexOf('/// [\\u{007f}]') > -1);
     assert.ok(swift.indexOf('/// [\\u{0008}]') > -1);
     assert.ok(swift.indexOf('static let backspace = "[\\u{8}]"') > -1);
     assert.ok(swift.indexOf('static let formfeed = "[\\u{C}]"') > -1);

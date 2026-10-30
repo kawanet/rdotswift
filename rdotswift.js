@@ -188,10 +188,11 @@ function makeExtension(type, src, filter, options) {
  */
 
 function literal(val) {
-  return JSON.stringify(val).replace(/\\(u[0-9a-f]{4}|.)/g, function(match, esc) {
+  const json = JSON.stringify(val).replace(/\\(u[0-9a-f]{4}|.)/g, function(match, esc) {
     if (esc[0] === "u") return "\\u{" + esc.substr(1) + "}";
     return SWIFT_ESCAPE[esc] || match;
   });
+  return json.replace(/\x7f/g, "\\u{007f}");
 }
 
 function makeComment(val) {

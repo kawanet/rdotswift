@@ -11,6 +11,7 @@ describe(TITLE, function() {
       <string name="star">x \\u2605 y</string>
       <string name="nbsp">10\u00a0km</string>
       <string name="control">a\\u0001b</string>
+      <string name="del">a\\u007fb</string>
       <string-array name="items"><item>a\\tb</item><item>\\u2605</item></string-array>
     </resources>
   `;
@@ -33,6 +34,7 @@ describe(TITLE, function() {
 
       // a control character needs the Swift spelling
       assert.ok(swift.indexOf('static let control = "a\\u{0001}b"') > -1);
+      assert.ok(swift.indexOf('static let del = "a\\u{007f}b"') > -1);
 
       done();
     });
