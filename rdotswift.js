@@ -10,6 +10,7 @@ const IF = "if";
 const TYPES = ["array", "bool", "color", "dimen", "integer", "string"];
 const RESERVED_MEMBER = {Type: 1, Protocol: 1};
 const MAX_COMMENT_LENGTH = 64;
+const JSON_ESCAPE = {b: "\b", f: "\f"};
 
 /**
  * generates Swift source code
@@ -79,13 +80,13 @@ function format(R, options) {
   }
 
   function arrayFilter(key, val) {
-    val = JSON.stringify(val);
+    val = literal(val);
     val = prefix(key) + " = " + val;
     return val;
   }
 
   function stringFilter(key, val) {
-    val = JSON.stringify(val + "");
+    val = literal(val + "");
     return prefix(key) + " = " + val;
   }
 
@@ -116,7 +117,7 @@ function format(R, options) {
       const uicolor = options.appkit ? "NSColor" : "UIColor";
       row += uicolor + "(red: " + c(red) + ", green: " + c(green) + ", blue:" + c(blue) + ", alpha: " + c(alpha) + ")";
     } else {
-      row += JSON.stringify(val);
+      row += literal(val);
     }
 
     return row;
@@ -181,6 +182,21 @@ function makeExtension(type, src, filter, options) {
   return rows;
 }
 
+// JSON.stringify writes a control character as \uXXXX, \b, \f or the raw DEL.
+function literal(val) {
+  return JSON.stringify(val).replace(/\\(u[0-9a-f]{4}|.)|\x7f/g, function(match, esc) {
+    if (esc == null) return spell(match);
+    if (esc[0] === "u") return "\\u{" + esc.substr(1) + "}";
+    if (JSON_ESCAPE[esc]) return spell(JSON_ESCAPE[esc]);
+    return match;
+  });
+}
+
+// the Swift spelling of a control character
+function spell(c) {
+  return "\\u{" + c.charCodeAt(0).toString(16).padStart(4, "0") + "}";
+}
+
 function makeComment(val) {
   if (val === "") val = "(empty)";
   val += "";
@@ -188,6 +204,7 @@ function makeComment(val) {
   val = val.replace(/\n/g, "\\n");
   val = val.replace(/\t/g, "\\t");
   val = val.replace(/\s+/g, " ");
+  val = val.replace(/[\x00-\x1f\x7f]/g, spell);
   if (val.length > MAX_COMMENT_LENGTH) {
     val = val.substr(0, MAX_COMMENT_LENGTH) + "...";
   }
