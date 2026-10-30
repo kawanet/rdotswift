@@ -201,6 +201,10 @@ function makeComment(val) {
   val = val.replace(/\n/g, "\\n");
   val = val.replace(/\t/g, "\\t");
   val = val.replace(/\s+/g, " ");
+  // spelled out as \u{XXXX}, so the comment shows what the value holds
+  val = val.replace(/[\x00-\x1f\x7f]/g, function(c) {
+    return "\\u{" + ("000" + c.charCodeAt(0).toString(16)).substr(-4) + "}";
+  });
   if (val.length > MAX_COMMENT_LENGTH) {
     val = val.substr(0, MAX_COMMENT_LENGTH) + "...";
   }
