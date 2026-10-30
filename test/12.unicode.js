@@ -38,7 +38,7 @@ describe(TITLE, function() {
     // a control character is written as \u{XXXX}
     assert.ok(swift.indexOf('static let control = "[\\u{0001}]"') > -1);
     assert.ok(swift.indexOf('static let nul = "[\\u{0000}]"') > -1);
-    assert.ok(swift.indexOf('static let del = "[\\u{007f}]"') > -1);
+    assert.ok(swift.indexOf('static let del = "[\\u{7F}]"') > -1);
 
     // the comment line spells a control character as \u{XXXX} too
     assert.ok(swift.indexOf('/// [\\u{0001}]') > -1);

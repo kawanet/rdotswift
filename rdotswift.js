@@ -11,6 +11,7 @@ const TYPES = ["array", "bool", "color", "dimen", "integer", "string"];
 const RESERVED_MEMBER = {Type: 1, Protocol: 1};
 const MAX_COMMENT_LENGTH = 64;
 const SWIFT_ESCAPE = {b: "\\u{8}", f: "\\u{C}"};
+const SWIFT_CONTROL = {"\x7f": "\\u{7F}"};
 
 /**
  * generates Swift source code
@@ -192,7 +193,9 @@ function literal(val) {
     if (esc[0] === "u") return "\\u{" + esc.substr(1) + "}";
     return SWIFT_ESCAPE[esc] || match;
   });
-  return json.replace(/\x7f/g, "\\u{007f}");
+  return json.replace(/\x7f/g, function(match) {
+    return SWIFT_CONTROL[match];
+  });
 }
 
 function makeComment(val) {

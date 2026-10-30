@@ -34,7 +34,7 @@ describe(TITLE, function() {
 
       // a control character needs the Swift spelling
       assert.ok(swift.indexOf('static let control = "a\\u{0001}b"') > -1);
-      assert.ok(swift.indexOf('static let del = "a\\u{007f}b"') > -1);
+      assert.ok(swift.indexOf('static let del = "a\\u{7F}b"') > -1);
 
       done();
     });
