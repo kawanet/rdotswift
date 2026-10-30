@@ -10,6 +10,7 @@ const IF = "if";
 const TYPES = ["array", "bool", "color", "dimen", "integer", "string"];
 const RESERVED_MEMBER = {Type: 1, Protocol: 1};
 const MAX_COMMENT_LENGTH = 64;
+const SWIFT_ESCAPE = {b: "\\u{8}", f: "\\u{C}"};
 
 /**
  * generates Swift source code
@@ -79,13 +80,13 @@ function format(R, options) {
   }
 
   function arrayFilter(key, val) {
-    val = JSON.stringify(val);
+    val = literal(val);
     val = prefix(key) + " = " + val;
     return val;
   }
 
   function stringFilter(key, val) {
-    val = JSON.stringify(val + "");
+    val = literal(val + "");
     return prefix(key) + " = " + val;
   }
 
@@ -116,7 +117,7 @@ function format(R, options) {
       const uicolor = options.appkit ? "NSColor" : "UIColor";
       row += uicolor + "(red: " + c(red) + ", green: " + c(green) + ", blue:" + c(blue) + ", alpha: " + c(alpha) + ")";
     } else {
-      row += JSON.stringify(val);
+      row += literal(val);
     }
 
     return row;
@@ -179,6 +180,18 @@ function makeExtension(type, src, filter, options) {
   }
 
   return rows;
+}
+
+/**
+ * Swift has no \b, \f or \uXXXX escape. The JSON form is close enough that
+ * only those three need to be respelled as \u{...}.
+ */
+
+function literal(val) {
+  return JSON.stringify(val).replace(/\\(u[0-9a-f]{4}|.)/g, function(match, esc) {
+    if (esc[0] === "u") return "\\u{" + esc.substr(1) + "}";
+    return SWIFT_ESCAPE[esc] || match;
+  });
 }
 
 function makeComment(val) {
